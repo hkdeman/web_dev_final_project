@@ -1,0 +1,88 @@
+.container {
+    padding:0 !important;
+    margin:3% !important;   
+    font-family: 'Abel', sans-serif;
+    width:100%;
+}
+
+.review-teacher {
+    text-align: center;
+}
+
+.review-teacher h1 {
+    font-size: 45px;    
+}
+
+.review p {
+    font-size:24px;
+}
+
+.review {
+    border:2px solid #008080;
+    border-radius: 15px;
+    width:100%;
+    margin-top:5%;
+}
+
+.review-desc {
+    border:2px solid #008080;
+    border-radius: 15px;
+    padding:2%;
+}
+
+.review-title {
+    font-weight: bold;
+}
+
+.reviews {
+    margin-top:5%;
+}
+
+.teacher-desc {
+    margin-top:5%;
+}
+
+.teacher-desc-title h1 {
+    text-align: center;
+}
+
+.teacher-desc-info p {
+    font-size: 30px;
+    padding: 2%;
+}
+
+.teacher-desc-teacher h2{
+    text-align: center;
+    font-weight: bold;
+}
+
+.teacher-desc-teacher img{
+    display: block;
+    margin: 0 auto;
+    margin-top:5%;
+}
+
+.teacher-desc-teacher p {
+    font-size: 25px;
+    padding: 2%;
+}
+
+.review-like-button {
+    padding-top: 2%;
+    text-align: right;
+    font-size: 2em;
+}
+
+.blue {
+    color: #008080;
+}
+
+.navbar-brand-img {
+    width:200px;
+    margin-top:-55px;
+}
+
+.contact p {
+    font-size:22px;
+    padding: 2%;
+}
