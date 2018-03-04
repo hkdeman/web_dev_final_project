@@ -1,0 +1,115 @@
+.container {
+    padding:0 !important;
+    margin:3% !important;   
+    font-family: 'Abel', sans-serif;
+    width:75%;
+}
+
+
+.introduction-div {
+    margin-bottom:30px;
+    margin-left:10%;
+}
+
+.introduction-title h1 {
+    text-align:center;
+    font-size:45px;
+    margin-bottom:5%;
+}
+
+
+.introduction-img-title {
+    padding-top:10%;
+    text-align: center;
+}
+
+.introduction-img {
+    padding-left: 5%;
+    height: 350px;
+}
+
+.top-recommendation-div {
+    margin-left:10%;
+}
+
+.top-recommendation-title h1 {
+    text-align:center;
+    padding:8%;
+    font-size:45px;
+}
+
+.top-universities-div {
+    border: 2px solid #008080;
+    border-radius: 15px;
+    padding:2%;
+    width:47.5%;
+}
+
+.top-universities-title {
+    margin-left:10%;
+}
+
+.top-universities-list {
+    margin-left:7%;
+}
+
+.top-subjects-div {
+    border: 2px solid #008080;
+    border-radius: 15px;
+    padding:2%;
+    margin-left:5%;
+    width:47.5%;
+}
+
+.top-subjects-title {
+    margin-left:10%;
+}
+
+.top-subjects-list {
+    margin-left:7%;
+}
+
+
+.btn-teal {
+    background-color:#006666;
+    color:white;
+}
+
+.btn-teal-light {
+    background-color:	#008080;
+    color:white;
+}
+
+.btn-teal-lightest {
+    background-color:	#5F9F9F;
+    color:white;
+}
+
+
+
+.full {
+    width:100%;
+    margin-top:5px;
+}
+
+
+.pick-university-detail {
+    text-align: center;
+    margin-left:10%;
+    margin-top:10%;
+    padding: 5%;
+    border: 2px solid #008080;
+    border-radius: 24px;
+}
+
+.pick-university-detail-title {
+    text-align: center;
+    margin-top:-2%;
+    margin-bottom:2%;
+}
+
+
+.navbar-brand-img {
+    width:200px;
+    margin-top:-55px;
+}
