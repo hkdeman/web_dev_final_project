@@ -22,22 +22,30 @@ class Comment(models.Model):
     reviewType = models.CharField(max_length=1, choices = REVIEW_TYPES)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
 
-class Teacher(models.Model):
-    name = models.CharField(max_length=30)
-    def __str__(self):
-        return self.name
-
 class University(models.Model):
     name = models.CharField(max_length=30)
     location = models.CharField(max_length=120)
     def __str__(self):
         return self.name
 
-class Course(models.Model):
-    university = models.ForeignKey(University, on_delete=models.CASCADE)
+class School(models.Model):
     name = models.CharField(max_length=60)
-    convener = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name="course_convener")
+    university = models.ForeignKey(University, on_delete=models.CASCADE)
+
+class Teacher(models.Model):
+    name = models.CharField(max_length=30)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, null=True)
+    def __str__(self):
+        return self.name
+
+
+class Course(models.Model):
+    school = models.ForeignKey(School, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=60)
+    convener = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name="course_convener", null=True)
     teachers = models.ManyToManyField(Teacher)
+    description = models.CharField(max_length=1000, default=" ")
+    url = models.URLField(blank=True)
     def __str__(self):
         return self.name
 
