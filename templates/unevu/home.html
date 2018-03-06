@@ -2,7 +2,9 @@
 
 {% load staticfiles %}
 {% block css %}
-	<link rel="stylesheet" href="{% static 'css/home.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/jquery.bxslider.css' %}">
+    <script src="{% static 'js/jquery.bxslider.js' %}"></script>
 {% endblock %}
 
 {% block body %}
@@ -51,39 +53,24 @@
                 </div>
             </div>
             <div class="col-lg-12 pick-university-detail">
+                {% csrf_token %}
                 <div class="col-lg-12 pick-university-detail-title">
                     <h1>Choose A University</h1>
                 </div>
                 <div class="col-lg-4 pick-university">
-                    <button class="btn btn-teal full active"><h3>The University of Glasgow</h3></button>
-                    <button class="btn btn-teal full"><h3>Cambridge University</h3></button>
-                    <button class="btn btn-teal full"><h3>St. Andrews</h3></button>
-                    <button class="btn btn-teal full"><h3>The University of Manchester</h3></button>
-                    <button class="btn btn-teal full"><h3>The University of Edinburgh</h3></button>
-                    <button class="btn btn-teal full"><h3>Oxford University</h3></button>
-                    <button class="btn btn-teal full"><h3>The University of Dundee</h3></button>
-                    <button class="btn btn-teal full"><h3>Kings College London</h3></button>
+                    {% for university in universities %}
+                        <button class="btn btn-teal full university"><h3>{{university.name}}</h3></button>
+                    {% endfor %}                    
                 </div>
                 <div class="col-lg-4 pick-field">
-                    <button class="btn btn-teal-light full active"><h3>School of Computing</h3></button>
-                    <button class="btn btn-teal-light full"><h3>School of Computing</h3></button>
-                    <button class="btn btn-teal-light full"><h3>School of Engineering</h3></button>
-                    <button class="btn btn-teal-light full"><h3>School of Medicine</h3></button>
-                    <button class="btn btn-teal-light full"><h3>School of Science</h3></button>
-                    <button class="btn btn-teal-light full"><h3>School of Economics</h3></button>
-                    <button class="btn btn-teal-light full"><h3>School of Arts</h3></button>
                 </div>
                 <div class="col-lg-4 pick-subject">
-                    <button class="btn btn-teal-lightest full"><h3>Deep Learning</h3></button>
-                    <button class="btn btn-teal-lightest full"><h3>Artificial Intelligence</h3></button>
-                    <button class="btn btn-teal-lightest full"><h3>Machine Learning</h3></button>
-                    <button class="btn btn-teal-lightest full"><h3>Computing Science</h3></button>
-                    <button class="btn btn-teal-lightest full"><h3>Computing Science with Mathematics</h3></button>
-                    <button class="btn btn-teal-lightest full"><h3>Web Development</h3></button>
-                    <button class="btn btn-teal-lightest full"><h3>Game Development</h3></button>
-
                 </div>
             </div>
         </div>
+
+        <!-- Adding the scripts that need to be run after the html has been rendered -->
+        <script src="{% static 'js/home.js' %}"></script>
+        
         
 {% endblock %}

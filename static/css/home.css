@@ -113,3 +113,12 @@
     width:200px;
     margin-top:-55px;
 }
+
+.pick-university {
+    max-height:500px;
+    overflow-y:scroll;
+}
+
+.pick-university button{
+    white-space: normal;
+}

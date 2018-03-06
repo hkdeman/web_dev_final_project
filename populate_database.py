@@ -35,8 +35,13 @@ glasgow_courses = json.loads(file.read())
 file = open("assets/glasgow_university_teacher_data.json", "r")
 glasgow_teachers = json.loads(file.read())
 
-gla = add_uni("University of Glasgow", "Glasgow, Scotland")
+file = open("assets/top_50_university_data.json","r")
+universities = json.loads(file.read())
 
+for university in tqdm(universities,desc="Adding Universities"):
+	add_uni(university, "United Kingdom")
+
+gla = add_uni("University of Glasgow", "Glasgow, Scotland")
 
 for school in glasgow_courses:
 	curr_school = add_school(school["title"], gla)

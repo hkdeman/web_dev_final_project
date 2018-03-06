@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from django.template import loader
-# Create your views here.
+from django.contrib.auth import authenticate,login
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
+import json
+
+from unevu.models import University, School
 
 def home(request):    
     context_dict = {}
+    context_dict['universities'] = University.objects.all()
     
     response = render(request, 'unevu/home.html', context=context_dict)
     
@@ -47,3 +53,12 @@ def choose_uni(request):
     return response
     
         
+def home_details(request):
+    if request.method == "POST":
+        if request.POST.get("what")=="query-schools":
+            name = request.POST.get('university')
+            university = University.objects.get(name=name)
+            schools = [school.name for school in School.objects.filter(university_id=university.id)]
+            json_schools = json.dumps({"schools" : schools})    
+            return HttpResponse(json_schools, content_type ="application/json")
+            
