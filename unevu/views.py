@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.template import loader
 from django.contrib.auth import authenticate,login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
+from django.http import Http404
 
-from unevu.models import University, School
+from unevu.models import University, School, Course, Review, Teacher
 
 def home(request):    
     context_dict = {}
@@ -47,9 +48,7 @@ def user_login(request):
 
 def choose_uni(request):
     context_dict = {}
-    
     response = render(request, 'unevu/home.html', context=context_dict)
-    
     return response
     
         
@@ -59,6 +58,31 @@ def home_details(request):
             name = request.POST.get('university')
             university = University.objects.get(name=name)
             schools = [school.name for school in School.objects.filter(university_id=university.id)]
-            json_schools = json.dumps({"schools" : schools})    
+            json_schools = json.dumps({"schools" : schools})
             return HttpResponse(json_schools, content_type ="application/json")
-            
+        elif request.POST.get("what")=="query-subjects":
+            name = request.POST.get('university')
+            school_name = request.POST.get('school')
+            university = University.objects.get(name=name)
+            school = School.objects.get(university_id=university.id,name=school_name)
+            courses = [course.name for course in Course.objects.filter(school_id=school.id)]
+            json_courses = json.dumps({"courses" : courses})
+            return HttpResponse(json_courses, content_type ="application/json")
+        elif request.POST.get("what")=="course-selected":
+            name = request.POST.get('university')
+            school_name = request.POST.get('school')
+            course_name = request.POST.get('course')
+            university = University.objects.get(name=name)
+            school = School.objects.get(university_id=university.id,name=school_name)
+            course = Course.objects.get(school_id=school.id,name=course_name)
+            json_selected_course = json.dumps({"id" : course.id})
+            return HttpResponse(json_selected_course, content_type ="application/json")
+
+    return Http404("Course not found or access denied. Please go back.")
+
+
+def review_course(request,course_id):
+    course = Course.objects.get(id=course_id)
+    teachers = [teacher.name for teacher in Teacher.objects.filter(school_id= course.school_id)]
+    context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers}
+    return render(request, 'unevu/subjects_review.html', context=context_dict)

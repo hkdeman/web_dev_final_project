@@ -1,53 +1,41 @@
 {% extends 'unevu/base.html' %}
 {% load staticfiles %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/subjects_review.css' %}"></link>
+{% endblock %}
+
 {% block body %}
         <div class="container">
             <div class="col-lg-12">
                 <div class="col-lg-6 review-div">
                     <div class="col-lg-12 review-subject">
-                        <h1>CS1P</h1>
+                        <h1>{{title}}</h1>
                     </div>
                     <div class="col-lg-12 reviews">
-                        <div class="col-lg-12 review review-1">
-                            <div class="col-lg-6">
-                                <h1 class="review-1-name review-title">Gabs</h1>
+                        <button class="btn btn-lg btn-add-comment">Add a Comment</button>
+                        {% if reviews %}
+                            {% for review in reviews %}
+                                <div class="col-lg-12 review review-1">
+                                    <div class="col-lg-6">
+                                        <h1 class="review-1-name review-title">Gabs</h1>
+                                    </div>
+                                    <div class="col-lg-6 review-like-button">
+                                        <span class="glyphicon glyphicon-thumbs-up blue"></span>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p class="review-1-desc review-desc">Loved the subject, take extra care in 
+                                                how to lay out questions and make sure you explain what you are doing 
+                                                in each step. Essentially 
+                                                someone else should be able to use your answer to understand the concept.</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-lg-12 no-reviews">
+                                <h2>There no reviews yet! Feel free to add one!</h2>
                             </div>
-                            <div class="col-lg-6 review-like-button">
-                                <span class="glyphicon glyphicon-thumbs-up blue"></span>
-                            </div>
-                            <div class="col-lg-12">
-                                <p class="review-1-desc review-desc">Loved the subject, take extra care in 
-                                        how to lay out questions and make sure you explain what you are doing 
-                                        in each step. Essentially 
-                                        someone else should be able to use your answer to understand the concept.</p>
-                            </div>
-                            </div>
-                        <div class="col-lg-12 review review-1">
-                            <div class="col-lg-6">                            
-                                <h1 class="review-1-name review-title">Eleonora</h1>
-                            </div>
-                            <div class="col-lg-6 review-like-button">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                            </div>
-                            <div class="col-lg-12">                            
-                                <p class="review-1-desc review-desc">Practically impossible to fail. You get three 
-                                    attempts at all tests. Only two assignments. Very fun course.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 review review-1">
-                            <div class="col-lg-6">                            
-                                <h1 class="review-1-name review-title">Reiss</h1>
-                            </div>
-                            <div class="col-lg-6 review-like-button">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                            </div>
-                            <div class="col-lg-12">                                                        
-                                <p class="review-1-desc review-desc">Very easy course if you have any kind of 
-                                    computing background. Simple mathematics, just make sure you 
-                                    make the time to study before the exams so you don't need to resit</p>
-                            </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col-lg-6 subject-desc">
@@ -55,25 +43,28 @@
                         <h1>Description</h1>
                     </div>
                     <div class="col-lg-12 subject-desc-info">
-                        <p>Computing science is wide-ranging: from programming and engineering 
-                            large software systems, to the design and evaluation of human-computer 
-                            interfaces, algorithms, computer and network systems, and information 
-                            retrieval and storage systems.</p>
+                        <p>{{description}}</p>
                     </div>
-                    <div class="col-lg-12 subject-desc-teacher">
-                        <h2>John Williamson</h2>
-                        <img src="john-williamson.png"/>
-                        <p>My research is focused on continuous interaction 
-                            systems and computational approaches to human-computer 
-                            interaction. This includes gesture recognition/motion 
-                            sensor based interfaces, brain-computer interaction, 
-                            and particularly developing new feedback mechanisms 
-                            for such systems.</p>
-                    </div>    
+                    {% if teacher %}
+                        <div class="col-lg-12 subject-desc-teacher">
+                            <h2>{{teacher}}</h2>
+                            <p>{{teacher_description}}</p>
+                        </div>
+                    {% else %}
+                        <div class="col-lg-12 no-teacher">
+                            <h2>Sorry there are no teachers lined. Add the teacher link below!</h2>
+                            <div class="dropdown teacher-dropdown">
+                                <button class="btn btn-lg dropdown-toggle teacher-selector" type="button" data-toggle="dropdown">Teachers
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu pre-scrollable">
+                                    {% for teacher in teachers %}
+                                        <li><a href="#">{{teacher}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
 {% endblock %}
-
-    </body>
-</html>

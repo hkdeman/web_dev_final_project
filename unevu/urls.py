@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^login/$', views.user_login, name='login'),
     url(r'^choose-uni/$', views.choose_uni, name = 'choose_uni'),
     url(r'^home-details$',views.home_details,name='home-details'),
+    url(r'^review-course/(?P<course_id>\d+)$',views.review_course,name='review-course'),
 ] 

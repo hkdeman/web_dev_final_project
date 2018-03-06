@@ -1,6 +1,6 @@
 .container {
     padding:0 !important;
-    margin:3% !important;   
+    margin-top:5% !important;   
     font-family: 'Abel', sans-serif;
     width:100%;
 }
@@ -47,8 +47,9 @@
 }
 
 .subject-desc-info p {
-    font-size: 30px;
+    font-size: 26px;
     padding: 2%;
+    text-align: justify;
 }
 
 .subject-desc-teacher h2{
@@ -80,4 +81,27 @@
 .navbar-brand-img {
     width:200px;
     margin-top:-55px;
+}
+
+.btn-add-comment {
+    float:right;
+    color:white;
+    background-color: teal;
+}
+
+.teacher-selector {
+    background-color:teal;
+    color:white;
+}
+
+.teacher-dropdown {
+    float: right;
+}
+
+.no-teacher h2 {
+    text-align: center;
+}
+
+.teacher-dropdown-menu {
+    height: 100px;
 }
