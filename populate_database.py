@@ -28,6 +28,30 @@ def add_course(name, school, url, description=" "):
 	course.save()
 	return course
 
+def set_convener_to_course(course, teacher):
+	course.convener = teacher
+	add_teacher_to_course(course, teacher)
+	
+
+def add_teacher_to_course(course, teacher):
+	course.teachers.add(teacher)
+	course.save()
+
+def add_user(username, email, first_name, last_name, password = "hunter2"):
+	user, created = User.objects.get_or_create(username=username, email=email)
+	if not created:
+	    user.set_password(password)
+	    user.first_name = first_name
+	    user.last_name = last_name
+	    2
+	user_profile = UserProfile.objects.get_or_create(user=user)[0]
+	return user_profile
+
+def add_course_review(course, user, review, rating):
+	course_review = CourseReview.objects.get_or_create(course=course,username=user,reviewText=review,rating=rating)[0]
+	course_review.save()
+	return course_review
+
 
 file = open("assets/glasgow_university_subject_data.json", "r")
 glasgow_courses = json.loads(file.read())
@@ -37,6 +61,7 @@ glasgow_teachers = json.loads(file.read())
 
 file = open("assets/top_50_university_data.json","r")
 universities = json.loads(file.read())
+
 
 for university in tqdm(universities,desc="Adding Universities"):
 	add_uni(university, "United Kingdom")
@@ -53,3 +78,11 @@ for school in glasgow_courses:
 	for teacher in tqdm(glasgow_teachers.get(school.get("title", []), [])):
 		add_teacher(teacher["name"], curr_school)
 	print()
+
+#Sets test review for Economics 1A
+course = Course.objects.get(id = 1)
+teacher = Teacher.objects.get(name = "Harless, Dr Patrick")
+set_convener_to_course(course,teacher)
+
+test_user = add_user("mrtest", "mrtest@test.com", "Test", "User")
+add_course_review(course, test_user, "Very good course. Fandabbydozy!", 4)
