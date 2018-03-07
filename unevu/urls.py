@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'^choose-uni/$', views.choose_uni, name = 'choose_uni'),
     url(r'^home-details$',views.home_details,name='home-details'),
     url(r'^review-course/(?P<course_id>\d+)$',views.review_course,name='review-course'),
+    url(r'^logout/$', views.user_logout, name='logout'),
+
 ] 

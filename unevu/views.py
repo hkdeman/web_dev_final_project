@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.template import loader
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
@@ -26,45 +26,65 @@ def about(request):
 
 def register(request):
     registered = False
-    if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
+    
+    if ('submit' in request.POST):
+        form = UserForm(data=request.POST)
 
-        if user_form.is_valid():
-            user = user_form.save()
-            user.set_password(user.password)
+        if form.is_valid():
+            user = form.save(commit=False)
+            
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+            
+            user.set_password(password)
             user.save()
             
             registered = True
+            
+            if user is not None:
+                if user.is_active:
+                    login(request,user)
+                    return redirect('/')        
+
         else:
-            print(user_form.errors)
+            print(form.errors)
     else:
-        user_form = UserForm()
+        form = UserForm()
 
     return render(request,
                   'unevu/register.html',
-                  {'form': user_form,
+                  {'form': form,
                    'registered': registered
                   })
 
 
 def user_login(request):
     if request.method == 'POST':
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
-
-        user = authenticate(username=username, password=password)
+        
+    
+        user = authenticate(email=email, password=password)
 
         if user:
             if user.is_active:
                 login(request, user)
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect('unevu/home.html')
             else:
                 return HttpResponse("Your Unevu account is disabled.")
         else:
-            print("Invalid login details: {0}, {1}".format(username, password))
+            print("Invalid login details: {0}, {1}".format(email, password))
             return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'unevu/login.html', {})
+
+def user_logout(request):
+    logout(request)
+
+    return redirect('/')
 
 def choose_uni(request):
     context_dict = {}
