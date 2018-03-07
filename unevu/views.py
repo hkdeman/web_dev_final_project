@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.template import loader
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate,login,logout, get_user_model
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 import json
@@ -29,7 +29,7 @@ def register(request):
     
     if ('submit' in request.POST):
         form = UserForm(data=request.POST)
-
+        
         if form.is_valid():
             user = form.save(commit=False)
             
@@ -53,7 +53,7 @@ def register(request):
             print(form.errors)
     else:
         form = UserForm()
-
+        
     return render(request,
                   'unevu/register.html',
                   {'form': form,
@@ -63,21 +63,32 @@ def register(request):
 
 def user_login(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        
+        if 'home' in request.POST:
+           return HttpResponseRedirect('/')
+        elif 'submit' in request.POST:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
     
-        user = authenticate(email=email, password=password)
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('unevu/home.html')
+            user = authenticate(username=username, password=password)
+            if user is None:
+                User = get_user_model()
+                user_queryset = User.objects.all().filter(email__iexact=username)
+                if user_queryset:
+                    username = user_queryset[0].username
+                    user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    if request.POST.get('remember_me'):
+                        request.session.set_expiry(settings.KEEP_LOGGED_DURATION)
+                    
+                    #Once logged in go back to home page    
+                    return HttpResponseRedirect('/')
+                else:
+                    return HttpResponse("Your Unevu account is disabled.")
             else:
-                return HttpResponse("Your Unevu account is disabled.")
-        else:
-            print("Invalid login details: {0}, {1}".format(email, password))
-            return HttpResponse("Invalid login details supplied.")
+                print("Invalid login details: {0}, {1}".format(username, password))
+                return HttpResponse("Invalid login details supplied.")
     else:
         return render(request, 'unevu/login.html', {})
 
