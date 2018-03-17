@@ -1,0 +1,86 @@
+
+.container {
+    padding:0 !important;
+    margin:3% !important;   
+    font-family: 'Abel', sans-serif;
+    width:75%;
+}
+
+
+.btn-teal {
+    background-color:#006666;
+    color:white;
+}
+
+.btn-teal-light {
+    background-color:	#008080;
+    color:white;
+}
+
+.btn-teal-lightest {
+    background-color:	#5F9F9F;
+    color:white;
+}
+
+
+.full {
+    width:100%;
+    margin-top:5px;
+}
+
+
+.pick-school-detail {
+    text-align: center;
+    margin-left:10%;
+    margin-top:5%;
+    padding: 5%;
+    border: 2px solid #008080;
+    border-radius: 24px;
+}
+
+.pick-school-detail-title {
+    text-align: center;
+    margin-top:-2%;
+    margin-bottom:2%;
+}
+
+.pick-school {
+    max-height:500px;
+    overflow-y:scroll;
+}
+
+.pick-school button{
+    white-space: normal;
+}
+
+.university-stars {
+    margin-top:4%;
+}
+
+.university-stars p {
+    position: relative;
+    bottom:30px;
+    left:180px;
+    font-size:24px; 
+}
+
+
+#map {
+    height: 300px;
+    width: 100%;
+    margin-left:25%;
+}
+
+.university-div {
+    padding:5%;
+}
+
+.university-info {
+    padding-left:5%;
+}
+
+.university-desc p {
+    font-size:24px;
+    margin-top:5%;
+    margin-left:5%;
+}

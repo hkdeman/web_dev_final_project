@@ -102,28 +102,40 @@ def choose_uni(request):
     response = render(request, 'unevu/home.html', context=context_dict)
     return response
     
-        
-def home_details(request):
+def uni_details(request):
     if request.method == "POST":
         if request.POST.get("what")=="query-schools":
             name = request.POST.get('university')
             university = University.objects.get(name=name)
-            schools = [school.name for school in School.objects.filter(university_id=university.id)]
-            json_schools = json.dumps({"schools" : schools})
-            return HttpResponse(json_schools, content_type ="application/json")
-        elif request.POST.get("what")=="query-subjects":
-            name = request.POST.get('university')
+            json_university = json.dumps({"id" : university.id})
+            return HttpResponse(json_university, content_type ="application/json")
+
+def university(request,uni_id):
+    if request.method == "GET":
+        university = University.objects.get(id=uni_id)
+        schools = [school.name for school in School.objects.filter(university_id=university.id)]
+        uni_desc = "This is university is just great! Please do come here because you ain't going to regret it"
+        context_dict = {"schools":schools,"university_name":university.name,"rating":4.8,
+                        "university_description":uni_desc}
+        print(context_dict)
+        response = render(request, 'unevu/university.html', context=context_dict)
+        return response
+
+def school_details(request):
+    if request.method == "POST":
+        if request.POST.get("what")=="query-subjects":
+            id = int(request.POST.get('university'))
             school_name = request.POST.get('school')
-            university = University.objects.get(name=name)
+            university = University.objects.get(id=id)
             school = School.objects.get(university_id=university.id,name=school_name)
             courses = [course.name for course in Course.objects.filter(school_id=school.id)]
             json_courses = json.dumps({"courses" : courses})
             return HttpResponse(json_courses, content_type ="application/json")
         elif request.POST.get("what")=="course-selected":
-            name = request.POST.get('university')
+            id = int(request.POST.get('university'))
             school_name = request.POST.get('school')
             course_name = request.POST.get('course')
-            university = University.objects.get(name=name)
+            university = University.objects.get(id=id)
             school = School.objects.get(university_id=university.id,name=school_name)
             course = Course.objects.get(school_id=school.id,name=course_name)
             json_selected_course = json.dumps({"id" : course.id})

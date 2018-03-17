@@ -21,6 +21,21 @@
                         <img src="{% static 'images/home_background.jpg' %}" class="introduction-img">
                 </div>
             </div>
+            <div class="col-lg-12 pick-university-detail">
+                {% csrf_token %}
+                <div class="col-lg-12 pick-university-detail-title">
+                    <h1>Choose A University</h1>
+                </div>
+                <div class="col-lg-6 col-lg-offset-3 pick-university">
+                    {% for university in universities %}
+                        <button class="btn btn-teal full university"><h3>{{university.name}}</h3></button>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-4 pick-field">
+                </div>
+                <div class="col-lg-4 pick-subject">
+                </div>
+            </div>
             <div class="col-lg-12 top-recommendation-div">
                 <div class="col-lg-12 top-recommendation-title">
                     <h1>Pick From The Best Of The Best</h1>
@@ -50,21 +65,6 @@
                             <a href="/subjects/economics"><li>Economics</li></a>
                         </ul>
                     </h3>
-                </div>
-            </div>
-            <div class="col-lg-12 pick-university-detail">
-                {% csrf_token %}
-                <div class="col-lg-12 pick-university-detail-title">
-                    <h1>Choose A University</h1>
-                </div>
-                <div class="col-lg-4 pick-university">
-                    {% for university in universities %}
-                        <button class="btn btn-teal full university"><h3>{{university.name}}</h3></button>
-                    {% endfor %}                    
-                </div>
-                <div class="col-lg-4 pick-field">
-                </div>
-                <div class="col-lg-4 pick-subject">
                 </div>
             </div>
         </div>
