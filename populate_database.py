@@ -8,8 +8,8 @@ django.setup()
 
 from unevu.models import *
 
-def add_uni(name, location):
-	uni = University.objects.get_or_create(name=name, location=location)[0]
+def add_uni(name, location,desc="",lat=0.0,lng=0.0):
+	uni = University.objects.get_or_create(name=name, location=location,description=desc,lat=lat,lng=lng)[0]
 	uni.save()
 	return uni
 
@@ -61,11 +61,16 @@ glasgow_teachers = json.loads(file.read())
 file = open("assets/top_50_university_data.json","r")
 universities = json.loads(file.read())
 
+gla = add_uni("University of Glasgow", "Glasgow, Scotland",
+			"The University of Glasgow is the fourth oldest university in the English-speaking world \
+			and one of Scotland's four ancient universities. It was founded in 1451. \
+			Along with the University of Edinburgh, the University was part of the \
+			Scottish Enlightenment during the 18th century. It is currently a member \
+			of Universitas 21, the international network of research universities and the Russell Group.",
+			55.87212109999999,-4.288200500000016)
 
 for university in tqdm(universities,desc="Adding Universities"):
 	add_uni(university, "United Kingdom")
-
-gla = add_uni("University of Glasgow", "Glasgow, Scotland")
 
 for school in glasgow_courses:
 	curr_school = add_school(school["title"], gla)

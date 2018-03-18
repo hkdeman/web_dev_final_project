@@ -53,14 +53,22 @@ $(".school").click(function() {
 
 $(function () {
     $("#rateYo").rateYo({
-      rating: Number($('.rating').text())
+      rating: Number($('.rating').val())
     });
 });
 
 function initMap() {
-    var uluru = {lat: 55.87212109999999, lng: -4.288200500000016};
+    var lat = parseFloat($('.map-lat').val());
+    var lng = parseFloat($('.map-lng').val());
+    var zoom = 16;
+    if(lat == 0.0) {
+        zoom = 4;
+        lat = 51.5074;
+        lng = 0.1278;
+    }
+    var uluru = {lat: lat, lng: lng};
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
+        zoom: zoom,
         center: uluru
     });
     var marker = new google.maps.Marker({

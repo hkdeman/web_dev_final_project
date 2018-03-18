@@ -26,8 +26,12 @@ class Comment(models.Model):
 class University(models.Model):
     name = models.CharField(max_length=30)
     location = models.CharField(max_length=120)
+    description = models.CharField(default="",max_length=1000)
+    lat = models.FloatField(default=0.0)
+    lng = models.FloatField(default=0.0)
+
     def __str__(self):
-        return self.name
+        return self.name+" "+str(self.lat)+" "+str(self.lng)+" "+self.description
 
 class School(models.Model):
     name = models.CharField(max_length=60)

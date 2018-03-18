@@ -7,7 +7,7 @@ import json
 from django.http import Http404
 from unevu.forms import UserForm
 
-from unevu.models import University, School, Course, Review, Teacher, UserProfile, User, CourseReview
+from unevu.models import *
 
 def home(request):    
     context_dict = {}
@@ -117,10 +117,15 @@ def university(request,uni_id):
     if request.method == "GET":
         university = University.objects.get(id=uni_id)
         schools = [school.name for school in School.objects.filter(university_id=university.id)]
-        uni_desc = "This is university is just great! Please do come here because you ain't going to regret it"
-        context_dict = {"schools":schools,"university_name":university.name,"rating":4.8,
-                        "university_description":uni_desc}
-        print(context_dict)
+        rating = None
+        uni_desc = university.description
+        try:
+            uni_reviews = UniReview.objects.get(university=university)
+            rating = sum([int(review.rating) for review in uni_reviews])/len(uni_reviews)
+        except:
+            pass
+            
+        context_dict = {"schools":schools,"university":university,"rating":rating}
         response = render(request, 'unevu/university.html', context=context_dict)
         return response
 
