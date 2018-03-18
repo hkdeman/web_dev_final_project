@@ -25,6 +25,7 @@ $('.btn-add-comment').click(function() {
             review: review,
             rating: rating,
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
+			location.reload()
         },function(data) {
             if (data == "Error") {
                 swal("Error!", "The review could not be added", "error");
