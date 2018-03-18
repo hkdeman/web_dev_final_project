@@ -7,7 +7,7 @@ import json
 from django.http import Http404
 from unevu.forms import UserForm
 
-from unevu.models import University, School, Course, Review, Teacher
+from unevu.models import University, School, Course, Review, Teacher, UserProfile, User, CourseReview
 
 def home(request):    
     context_dict = {}
@@ -44,11 +44,14 @@ def register(request):
             
             registered = True
             
+            if registered:
+                u = User.objects.get(username=username)
+                UserProfile.objects.create(user_id=u.id)
+
             if user is not None:
                 if user.is_active:
                     login(request,user)
-                    return redirect('/')        
-
+                    return redirect('/')     
         else:
             print(form.errors)
     else:
@@ -147,5 +150,22 @@ def school_details(request):
 def review_course(request,course_id):
     course = Course.objects.get(id=course_id)
     teachers = [teacher.name for teacher in Teacher.objects.filter(school_id= course.school_id)]
-    context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers}
+    reviews = CourseReview.objects.all()
+    context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,
+                    "reviews":reviews}
     return render(request, 'unevu/subjects_review.html', context=context_dict)
+
+def add_review(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            what = request.POST.get('what')
+            if what == "course":
+                course_id = request.POST.get('course')
+                review = request.POST.get('review')
+                rating = request.POST.get('rating')
+                course = Course.objects.get(id=int(course_id))
+                course_review = CourseReview.objects.create(course=course,username=request.user,reviewText=review,rating=rating)
+                course_review.save()
+                return 
+    else:
+        return HttpResponse("Error")

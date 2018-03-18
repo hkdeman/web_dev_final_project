@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^review-course/(?P<course_id>\d+)$',views.review_course,name='review-course'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^university/(?P<uni_id>\d+)$',views.university,name='university-page'),
+    url(r'^add-review',views.add_review,name='add-review'),
 ] 

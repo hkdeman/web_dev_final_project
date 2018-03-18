@@ -43,9 +43,8 @@ def add_user(username, email, first_name, last_name, password = "hunter2"):
 	    user.set_password(password)
 	    user.first_name = first_name
 	    user.last_name = last_name
-	    2
-	user_profile = UserProfile.objects.get_or_create(user=user)[0]
-	return user_profile
+	# user_profile = UserProfile.objects.get_or_create(user=user)[0]
+	return user
 
 def add_course_review(course, user, review, rating):
 	course_review = CourseReview.objects.get_or_create(course=course,username=user,reviewText=review,rating=rating)[0]
