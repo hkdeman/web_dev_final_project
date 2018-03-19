@@ -16,44 +16,7 @@
                     <div class="col-lg-12 review-subject">
                         <h1>{{title}}</h1>
                     </div>
-                    <div class="col-lg-12 reviews">
-                        {% csrf_token %}
-                        {% if user.is_authenticated %}
-                        <button class="btn btn-lg btn-add-comment">Add a Review</button>
-                        {% endif %}
-
-                        {% if reviews %}
-                        {% for review in reviews %}
-                        <div class="col-lg-12 review review-1">
-                            <div class="col-lg-6">
-                                <h1 class="review-1-name review-title">{{review.username.username}}</h1>
-                            </div>
-
-                            <div class="col-lg-6 review-like-button">
-                                <input class="review-rating" type="hidden" value="{{review.rating}}">
-
-                                <div class="col-lg-2 col-lg-offset-3 univeristy-stars">
-                                    <div data-id="{{review.rating}}" class="rateYo" data-rateyo-read-only="true" ></div>
-                                    {% if review.rating %}
-                                    <p class="rating" value="{{review.rating}}"></p>
-                                    {% endif %}
-
-                                </div>
-
-                                <span class="glyphicon glyphicon-thumbs-up blue"></span>
-                            </div>
-                            <div class="col-lg-12">
-                                <p class="review-1-desc review-desc">{{review.reviewText}}</p>
-                            </div>
-
-                        </div>
-                        {% endfor %}
-                        {% else %}
-                        <div class="col-lg-12 no-reviews">
-                            <h2>There no reviews yet! Feel free to add one!</h2>
-                        </div>
-                        {% endif %}
-                    </div>
+                {% include "unevu/review_list.html" %}
                 </div>
                 <div class="col-lg-6 subject-desc">
                     <div class="col-lg-12 subject-desc-title">

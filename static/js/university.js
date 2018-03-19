@@ -3,6 +3,10 @@ $(document).ready(function() {
     var str = window.location.href;
     var n = str.lastIndexOf('/');
     university = Number(str.substring(n + 1));
+    $("#rateYo").rateYo({
+      rating: parseFloat($('.rating').text()),
+      readOnly: true
+    });
 });
 
 $(".school").click(function() {
@@ -51,11 +55,6 @@ $(".school").click(function() {
     });
 });
 
-$(function () {
-    $("#rateYo").rateYo({
-      rating: Number($('.rating').val())
-    });
-});
 
 function initMap() {
     var lat = parseFloat($('.map-lat').val());
