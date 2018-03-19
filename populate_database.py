@@ -51,6 +51,10 @@ def add_course_review(course, user, review, rating):
 	course_review.save()
 	return course_review
 
+def add_uni_review(university, user, review, rating):
+	uni_review = UniReview.objects.get_or_create(university=university,username=user,reviewText=review,rating=rating)[0]
+	uni_review.save()
+	return uni_review
 
 file = open("assets/glasgow_university_subject_data.json", "r")
 glasgow_courses = json.loads(file.read())
@@ -68,6 +72,14 @@ gla = add_uni("University of Glasgow", "Glasgow, Scotland",
 			Scottish Enlightenment during the 18th century. It is currently a member \
 			of Universitas 21, the international network of research universities and the Russell Group.",
 			55.87212109999999,-4.288200500000016)
+
+
+test_user1 = add_user("mrtest1", "mrtest1@test.com", "Test1", "User")
+test_user2 = add_user("mrtest2", "mrtest2@test.com", "Test2", "User")
+test_user3 = add_user("mrtest3", "mrtest3@test.com", "Calum", "Mackay")
+add_uni_review(gla, test_user1, "Very good uni. Fandabbydozy!", 4)
+add_uni_review(gla, test_user2, "Too many people roll up their trousers", 2)
+add_uni_review(gla, test_user3, "I live for HIVE", 5)
 
 for university in tqdm(universities,desc="Adding Universities"):
 	add_uni(university, "United Kingdom")
@@ -88,5 +100,5 @@ course = Course.objects.get(id = 1)
 teacher = Teacher.objects.get(name = "Harless, Dr Patrick")
 set_convener_to_course(course,teacher)
 
-test_user = add_user("mrtest", "mrtest@test.com", "Test", "User")
+test_user = add_user("mrtest0", "mrtest0@test.com", "Test", "User")
 add_course_review(course, test_user, "Very good course. Fandabbydozy!", 4)
