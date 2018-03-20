@@ -12,6 +12,12 @@
     background-color: teal;
 }
 
+.btn-view-more {
+    float:right;
+    color:white;
+    background-color:teal;
+}
+
 .review-subject {
     text-align: center;
 }
@@ -115,7 +121,6 @@
 #map {
     height: 300px;
     width: 100%;
-    margin-left:25%;
 }
 
 .university-div {

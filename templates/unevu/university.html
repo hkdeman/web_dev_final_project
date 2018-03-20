@@ -31,15 +31,13 @@
                         <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12  university-desc">
                             <p>{{university.description}}</p>
                         </div>
-                        <div class="col-lg-4  col-md-6 col-sm-12 col-xs-12  university-maps">
+                        <div class="col-lg-4 col-lg-offset-1      col-md-6 col-sm-12 col-xs-12  university-maps">
                         <input class="map-lat" type="hidden" value="{{university.lat}}">
                         <input class="map-lng" type="hidden" value="{{university.lng}}">
                         <div id="map"></div>
                    	 	</div>
                     </div>
               </div>
-
-                    
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviews">
                         {% csrf_token %}
                         {% if user.is_authenticated %}
@@ -78,9 +76,12 @@
                             <h2>There no reviews yet! Feel free to add one!</h2>
                         </div>
                         {% endif %}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button class="btn btn-view-more">View more...</button>                                                                            
+                        </div>
                     </div>
-            
-            
+        
+    
             <div class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12 pick-school-detail">
                 {% csrf_token %}
                 <div class="col-lg-12 pick-school-detail-title">

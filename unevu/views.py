@@ -120,7 +120,7 @@ def university(request,uni_id):
         schools = [school.name for school in School.objects.filter(university_id=university.id)]
         rating = None
         uni_desc = university.description
-        uni_reviews = UniReview.objects.filter(university=university)
+        uni_reviews = UniReview.objects.filter(university=university).order_by('-rating')[:3]
         try:
             rating = round(sum([int(review.rating) for review in uni_reviews])/len(uni_reviews),1)
         except:
@@ -192,3 +192,12 @@ def add_review(request):
             
     else:
         return HttpResponse("Error")
+
+
+
+def review_uni(request,uni_id):
+    university = University.objects.get(id=uni_id)
+    reviews = UniReview.objects.filter(university=university)
+    context_dict = {"title":university.name.title(),"description":university.description,
+                    "reviews":reviews,"lat":university.lat,"lng":university.lng}
+    return render(request, 'unevu/universities_review.html', context=context_dict)

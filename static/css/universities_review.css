@@ -52,21 +52,12 @@
     text-align: justify;
 }
 
-.subject-desc-teacher h2{
-    text-align: center;
-    font-weight: bold;
+.btn-add-comment {
+    float:right;
+    color:white;
+    background-color: teal;
 }
 
-.subject-desc-teacher img{
-    display: block;
-    margin: 0 auto;
-    margin-top:5%;
-}
-
-.subject-desc-teacher p {
-    font-size: 25px;
-    padding: 2%;
-}
 
 .review-like-button {
     padding-top: 2%;
@@ -78,31 +69,8 @@
     color: #008080;
 }
 
-.btn-add-comment {
-    float:right;
-    color:white;
-    background-color: teal;
-}
 
-.teacher-selector {
-    background-color:teal;
-    color:white;
-}
-
-.teacher-dropdown {
-    float: right;
-}
-
-.no-teacher h2 {
-    text-align: center;
-}
-
-.teacher-dropdown-menu {
-    height: 100px;
-}
-
-#text {
-    width:100%;
-    height:100%;    
-    padding:5%;
+#map {
+    height: 300px;
+    width: 100%;
 }

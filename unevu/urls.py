@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^university/(?P<uni_id>\d+)$',views.university,name='university-page'),
     url(r'^add-review',views.add_review,name='add-review'),
+    url(r'^review-uni/(?P<uni_id>\d+)$',views.review_uni,name='review-uni'),
 ] 
