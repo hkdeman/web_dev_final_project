@@ -126,7 +126,7 @@ def university(request,uni_id):
             pass
         print(rating)
 
-        context_dict = {"schools":schools,"university":university,"rating":rating}
+        context_dict = {"schools":schools,"university":university,"rating":rating, "reviews": uni_reviews}
         response = render(request, 'unevu/university.html', context=context_dict)
         return response
 
@@ -173,5 +173,16 @@ def add_review(request):
                 course_review = CourseReview.objects.create(course=course,username=request.user,reviewText=review,rating=rating)
                 course_review.save()
                 return 
+            
+            elif what == "university":
+                uni_id = request.POST.get('university')
+                review = request.POST.get('review')
+                rating = request.POST.get('rating')
+                university = University.objects.get(id = int(uni_id))
+                uni_review = UniReview.objects.create(university=university,username=request.user,reviewText=review,rating=rating)
+                uni_review.save()
+                return
+
+            
     else:
         return HttpResponse("Error")
