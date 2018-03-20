@@ -171,7 +171,7 @@ def add_review(request):
                 review = request.POST.get('review')
                 rating = request.POST.get('rating')
                 course = Course.objects.get(id=int(course_id))
-                course.avgRating  = (course.avgRating * course.noOfRatings + rating)/(course.noOfRatings+1)
+                course.avgRating  = (course.avgRating * course.noOfRatings + int(rating))/(course.noOfRatings+1)
                 course.noOfRatings = course.noOfRatings+1
                 course.save()
                 course_review = CourseReview.objects.create(course=course,username=request.user,reviewText=review,rating=rating)
