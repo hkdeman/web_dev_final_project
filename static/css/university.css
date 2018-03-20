@@ -3,7 +3,7 @@
     padding:0 !important;
     margin:3% !important;   
     font-family: 'Abel', sans-serif;
-    width:75%;
+    width:90%;
 }
 
 .btn-add-comment {
@@ -27,8 +27,8 @@
 .review {
     border:2px solid #008080;
     border-radius: 15px;
-    width:100%;
-    margin-top:5%;
+    margin-top:2%;
+    margin-right: 3%;
 }
 
 .review-desc {
@@ -42,7 +42,7 @@
 }
 
 .reviews {
-    margin-top:5%;
+    margin-top:3%;
 }
 
 .review-like-button {
@@ -78,12 +78,11 @@
 
 
 .pick-school-detail {
-    text-align: center;
-    margin-left:10%;
-    margin-top:5%;
-    padding: 5%;
     border: 2px solid #008080;
     border-radius: 24px;
+    text-align: center;
+    margin-top:5%;
+    padding: 5%;
 }
 
 .pick-school-detail-title {
@@ -102,7 +101,7 @@
 }
 
 .university-stars {
-    margin-top:4%;
+    margin-top:2%;
 }
 
 .university-stars p {
@@ -132,4 +131,8 @@
     margin-top:5%;
     margin-left:5%;
     text-align: justify;
+}
+
+.review-ratings-stars {
+    margin-top:2%;
 }

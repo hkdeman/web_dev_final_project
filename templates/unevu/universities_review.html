@@ -1,0 +1,51 @@
+{% extends 'unevu/base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/subjects_review.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/sweetalert.css' %}"></link>   
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>    
+    <link rel="stylesheet" href="{% static 'css/jquery.rateyo.min.css' %}"></link>
+    <script src="{% static 'js/jquery.rateyo.min.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+        <div class="container">
+            <div class="col-lg-12">
+                <div class="col-lg-6 review-div">
+                    <div class="col-lg-12 review-subject">
+                        <h1>{{title}} @ {{uni_name}}</h1>
+                    </div>
+                {% include "unevu/review_list.html" %}
+                </div>
+                <div class="col-lg-6 subject-desc">
+                    <div class="col-lg-12 subject-desc-title">
+                        <h1>Description</h1>
+                    </div>
+                    <div class="col-lg-12 subject-desc-info">
+                        <p>{{description}}</p>
+                    </div>
+                    {% if university %}
+                        <div class="col-lg-12 subject-desc-university">
+                            <h2>{{university}}</h2>
+                            <p>{{university_description}}</p>
+                        </div>
+                    {% else %}
+                        <div class="col-lg-12 no-university">
+                            <h2>Sorry there are no universitys lined. Add the university link below!</h2>
+                            <div class="dropdown university-dropdown">
+                                <button class="btn btn-lg dropdown-toggle university-selector" type="button" data-toggle="dropdown">universitys
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu pre-scrollable">
+                                    {% for university in universities %}
+                                        <li><a href="#">{{university}}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <script src="{% static 'js/subjects_review.js' %}"></script>     
+{% endblock %}

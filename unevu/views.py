@@ -122,10 +122,9 @@ def university(request,uni_id):
         uni_desc = university.description
         uni_reviews = UniReview.objects.filter(university=university)
         try:
-            rating = sum([int(review.rating) for review in uni_reviews])/len(uni_reviews)
+            rating = round(sum([int(review.rating) for review in uni_reviews])/len(uni_reviews),1)
         except:
             pass
-        print(rating)
 
         context_dict = {"schools":schools,"university":university,"rating":rating, "reviews": uni_reviews}
         response = render(request, 'unevu/university.html', context=context_dict)
