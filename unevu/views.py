@@ -183,6 +183,9 @@ def add_review(request):
                 review = request.POST.get('review')
                 rating = request.POST.get('rating')
                 university = University.objects.get(id = int(uni_id))
+                university.avgRating  = (university.avgRating * university.noOfRatings + int(rating))/(university.noOfRatings+1)
+                university.noOfRatings = university.noOfRatings+1
+                university.save()
                 uni_review = UniReview.objects.create(university=university,username=request.user,reviewText=review,rating=rating)
                 uni_review.save()
                 return
