@@ -40,7 +40,6 @@ $('.btn-add-comment').click(function() {
 });
 
 
-
 function initMap() {
     var lat = parseFloat($('.map-lat').val());
     var lng = parseFloat($('.map-lng').val());

@@ -82,12 +82,19 @@
     margin-top:5px;
 }
 
+.toggle-teacher-course-div { 
+    margin-top:5%;
+    margin-bottom: 1%;
+}
+
+.btn-primary {
+    background-color: teal !important;
+}
 
 .pick-school-detail {
     border: 2px solid #008080;
     border-radius: 24px;
     text-align: center;
-    margin-top:5%;
     padding: 5%;
 }
 

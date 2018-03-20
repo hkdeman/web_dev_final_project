@@ -79,14 +79,14 @@ for university in tqdm(universities,desc="Adding Universities"):
 			 Cras finibus orci sem, quis euismod augue tincidunt a. Nam malesuada faucibus luctus. ",
 			 55.3781, -3.4)
 
-gla = add_uni("University of Glasgow", "Glasgow, Scotland",
-			"The University of Glasgow is the fourth oldest university in the English-speaking world \
+gla = add_uni("University of Edinburgh", "Edinburgh, Scotland",
+			"The University of Edinburgh is the fourth oldest university in the English-speaking world \
 			and one of Scotland's four ancient universities. It was founded in 1451. \
 			Along with the University of Edinburgh, the University was part of the \
 			Scottish Enlightenment during the 18th century. It is currently a member \
 			of Universitas 21, the international network of research universities and the Russell Group.",
 			55.87212109999999,-4.288200500000016)
-edi = add_uni("University of Edinburgh", "Edinburgh, Scotland",
+edi = add_uni("University of Glasgow", "Glasgow, Scotland",
 			"The University of Glasgow is the sixth oldest university in the English-speaking world \
 			and one of Scotland's four ancient universities. It was founded in 1451. \
 			Along with the University of Glasgow, the University was part of the \

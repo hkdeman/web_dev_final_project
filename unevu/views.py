@@ -138,7 +138,15 @@ def school_details(request):
             university = University.objects.get(id=id)
             school = School.objects.get(university_id=university.id,name=school_name)
             courses = [course.name for course in Course.objects.filter(school_id=school.id)]
-            json_courses = json.dumps({"courses" : courses})
+            json_courses = json.dumps({"info" : courses})
+            return HttpResponse(json_courses, content_type ="application/json")
+        elif request.POST.get("what")=="query-teachers":
+            id = int(request.POST.get('university'))
+            school_name = request.POST.get('school')
+            university = University.objects.get(id=id)
+            school = School.objects.get(university_id=university.id,name=school_name)
+            teachers = [teacher.name for teacher in Teacher.objects.filter(school_id=school.id)]
+            json_courses = json.dumps({"info" : teachers})
             return HttpResponse(json_courses, content_type ="application/json")
         elif request.POST.get("what")=="course-selected":
             id = int(request.POST.get('university'))
@@ -148,6 +156,15 @@ def school_details(request):
             school = School.objects.get(university_id=university.id,name=school_name)
             course = Course.objects.get(school_id=school.id,name=course_name)
             json_selected_course = json.dumps({"id" : course.id})
+            return HttpResponse(json_selected_course, content_type ="application/json")
+        elif request.POST.get("what")=="teacher-selected":
+            id = int(request.POST.get('university'))
+            school_name = request.POST.get('school')
+            teacher_name = request.POST.get('teacher')
+            university = University.objects.get(id=id)
+            school = School.objects.get(university_id=university.id,name=school_name)
+            teacher = Teacher.objects.get(school_id=school.id,name=teacher_name)
+            json_selected_course = json.dumps({"id" : teacher.id})
             return HttpResponse(json_selected_course, content_type ="application/json")
 
     return Http404("Course not found or access denied. Please go back.")
@@ -176,7 +193,6 @@ def add_review(request):
                 course_review = CourseReview.objects.create(course=course,username=request.user,reviewText=review,rating=rating)
                 course_review.save()
                 return 
-            
             elif what == "university":
                 uni_id = request.POST.get('university')
                 review = request.POST.get('review')
@@ -201,3 +217,9 @@ def review_uni(request,uni_id):
     context_dict = {"title":university.name.title(),"description":university.description,
                     "reviews":reviews,"lat":university.lat,"lng":university.lng}
     return render(request, 'unevu/universities_review.html', context=context_dict)
+
+def review_teacher(request,teacher_id):
+    teacher = Teacher.objects.get(id=teacher_id)
+    reviews = TeacherReview.objects.filter(teacher=teacher)
+    context_dict = {"teacher":teacher, "reviews":reviews, "uni_name":teacher.school.university.name}
+    return render(request, 'unevu/teachers_review.html', context=context_dict)

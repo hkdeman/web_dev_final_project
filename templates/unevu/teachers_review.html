@@ -1,88 +1,35 @@
 {% extends 'unevu/base.html' %}
 {% load staticfiles %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/subjects_review.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/sweetalert.css' %}"></link>   
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>    
+    <link rel="stylesheet" href="{% static 'css/jquery.rateyo.min.css' %}"></link>
+    <script src="{% static 'js/jquery.rateyo.min.js' %}"></script>
+{% endblock %}
+
 {% block body %}
         <div class="container">
             <div class="col-lg-12">
                 <div class="col-lg-6 review-div">
                     <div class="col-lg-12 review-teacher">
-                        <h1>John Williamson</h1>
+                        <h1>{{teacher.name}}</h1>
                     </div>
-                    <div class="col-lg-12 reviews">
-                        <div class="col-lg-12 review review-1">
-                            <div class="col-lg-6">
-                                <h1 class="review-1-name review-title">Gabs</h1>
-                            </div>
-                            <div class="col-lg-6 review-like-button">
-                                <span class="glyphicon glyphicon-thumbs-up blue"></span>
-                            </div>
-                            <div class="col-lg-12">
-                                <p class="review-1-desc review-desc">Loved the teacher, take extra care in 
-                                        how to lay out questions and make sure you explain what you are doing 
-                                        in each step. Essentially 
-                                        someone else should be able to use your answer to understand the concept.</p>
-                            </div>
-                            </div>
-                        <div class="col-lg-12 review review-1">
-                            <div class="col-lg-6">                            
-                                <h1 class="review-1-name review-title">Eleonora</h1>
-                            </div>
-                            <div class="col-lg-6 review-like-button">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                            </div>
-                            <div class="col-lg-12">                            
-                                <p class="review-1-desc review-desc">Practically impossible to fail. You get three 
-                                    attempts at all tests. Only two assignments. Very fun course.</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 review review-1">
-                            <div class="col-lg-6">                            
-                                <h1 class="review-1-name review-title">Reiss</h1>
-                            </div>
-                            <div class="col-lg-6 review-like-button">
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
-                            </div>
-                            <div class="col-lg-12">                                                        
-                                <p class="review-1-desc review-desc">Very easy course if you have any kind of 
-                                    computing background. Simple mathematics, just make sure you 
-                                    make the time to study before the exams so you don't need to resit</p>
-                            </div>
-                        </div>
-                    </div>
+                {% include "unevu/review_list.html" %}
+            </div>
+            <div class="col-lg-6 subject-desc">
+                <div class="col-lg-12 subject-desc-title">
+                    <h1>Description</h1>
                 </div>
-                <div class="col-lg-6 teacher-desc">
-                    <div class="col-lg-12 teacher-desc-teacher">
-                        <img src="john-williamson.png"/>
-                        <p>My research is focused on continuous interaction 
-                            systems and computational approaches to human-computer 
-                            interaction. This includes gesture recognition/motion 
-                            sensor based interfaces, brain-computer interaction, 
-                            and particularly developing new feedback mechanisms 
-                            for such systems.</p>
-                    </div>
-                    <div class="col-lg-12 contact">
-                        <h2>Contact:</h2>
-                        <div class="col-lg-6">
-                                <p>Room 305<br>
-                                    Sir Alwyn Williams Building<br>
-                                    School of Computing Science<br>
-                                    University of Glasgow<br>
-                                    18 Lilybank Gardens<br>
-                                    Glasgow<br>
-                                    G12 8RZ<br>
-                                    United Kingdom<br>
-                        </div>
-                        <div class="col-lg-6">
-                            <p>
-                            <a href="mailto:jhw@dcs.gla.ac.uk">jhw@dcs.gla.ac.uk</a><br>
-                            Tel: +44 (0) 141 330 1650<br></p>
-                        </div>
-                        
-                        </p>
-                    </div>
+                <div class="col-lg-12 subject-desc-info">
+                    <p>{{description}}</p>
+                </div>
+                
                 </div>
             </div>
         </div>
+        <script src="{% static 'js/subjects_review.js' %}"></script>     
 {% endblock %}
 
     </body>

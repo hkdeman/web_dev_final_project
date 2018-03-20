@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^university/(?P<uni_id>\d+)$',views.university,name='university-page'),
     url(r'^add-review',views.add_review,name='add-review'),
     url(r'^review-uni/(?P<uni_id>\d+)$',views.review_uni,name='review-uni'),
+    url(r'^review-teacher/(?P<teacher_id>\d+)$',views.review_teacher,name='review-teacher'),    
 ] 

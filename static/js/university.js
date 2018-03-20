@@ -1,4 +1,7 @@
 var university;
+var choosingTeachers = false;
+var global_school;
+
 $(document).ready(function() {
     var str = window.location.href;
     var n = str.lastIndexOf('/');
@@ -10,20 +13,31 @@ $(document).ready(function() {
 });
 
 $(".school").click(function() {
+    var temp = $(this).text();
+    global_school = temp;
+    query_info(temp);
+});
+
+function query_info(school) {
+    var what = "query-subjects";
+    var class_type = "course";
+    if (choosingTeachers) {
+        what = "query-teachers";
+        class_type = "teacher"
+    }
     $('.type').empty().append("Subject");
-    var school = $(this).text();
 
         $.post('/school-details',{ 
             university: university,
             school:school,
-            what:"query-subjects",
+            what:what,
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
         },function(data) {
-            data = data.courses;
+            data = data.info;
             $('.pick-course').empty();
             var htmlstr="";
             for (var i in data) {
-                htmlstr +='<button class="btn btn-teal full course"><h3>'+data[i]+'</h3></button>';
+                htmlstr +='<button class="btn btn-teal full '+class_type+'"><h3>'+data[i]+'</h3></button>';
             }
             $('.pick-course').append(htmlstr);            
             $('.pick-course').css({
@@ -36,24 +50,39 @@ $(".school").click(function() {
                 'white-space':'normal'
             });
 
-            $('.course').click(function() {
+            $('.'+class_type).click(function() {
                 if($(this).text()=="") {
                     return;
                 }
-                course = $(this).text();
-                $.post('/school-details',{ 
-                    university: university,
-                    school:school,
-                    course:course,
-                    what:"course-selected",
-                    csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
-                },function(data) {
-                    window.location.replace("/review-course/"+data.id);
-            });
+
+                if (choosingTeachers) {
+                    teacher = $(this).text();
+                    $.post('/school-details',{ 
+                        university: university,
+                        school:school,
+                        teacher:teacher,
+                        what:"teacher-selected",
+                        csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
+                    },function(data) {
+                        window.location.replace("/review-teacher/"+data.id);
+                    });
+                } else {
+                    course = $(this).text();
+                    $.post('/school-details',{ 
+                        university: university,
+                        school:school,
+                        course:course,
+                        what:"course-selected",
+                        csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
+                    },function(data) {
+                        window.location.replace("/review-course/"+data.id);
+                    });
+                }
+                
         });
 
     });
-});
+}
 
 $('.btn-add-comment').click(function() {
     var textarea_styling= "<textarea id='text' style='width:100%;height:200px;padding:2%;font-family: 'Abel', sans-serif; \
@@ -129,4 +158,14 @@ function initMap() {
 
 $('.btn-view-more').click(function() {
     location.href = "/review-uni/"+university;
+});
+
+
+$("#toggle-teacher-course").change(function() {
+    if($(this).prop('checked')) {
+        choosingTeachers = true;
+    } else {
+        choosingTeachers = false;
+    }
+    query_info(global_school);
 });
