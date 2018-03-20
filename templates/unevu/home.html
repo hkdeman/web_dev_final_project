@@ -45,11 +45,9 @@
                     <br>
                     <h3>
                         <ul class="top-universities-list">
-                            <a href="/university/1"><li>The University of Glasgow</li></a>
-                            <a href="/university/24"><li>The University of Edinburgh</li></a>
-                            <a href="/university/2"><li>Cambridge University</li></a>
-                            <a href="/university/3"><li>Oxford University</li></a>
-                            <a href="/university/6"><li>Imperial College of London</li></a>
+                            {% for uni in top_unis %}
+                            <a href="/university/{{uni.id}}"><li>{{uni.name}}</li></a>
+                            {% endfor %}
                         </ul>
                     </h3>
                 </div>
@@ -58,11 +56,9 @@
                     <br>
                     <h3>
                         <ul class="top-subjects-list">
-                            <a href="/subjects/computing-science"><li>Computing Science</li></a>
-                            <a href="/subjects/artificial-intelligence"><li>Artificial Intelligence</li></a>
-                            <a href="/subjects/bio-medical"><li>Bio-Medical</li></a>
-                            <a href="/subjects/electrical-and-electronic-engeering"><li>Electrical and Electronic Engineering</li></a>
-                            <a href="/subjects/economics"><li>Economics</li></a>
+                            {% for course in top_courses %}
+                                <a href="/review-course/{{course.id}}"><li>{{course.name}}</li></a>
+                            {% endfor %}
                         </ul>
                     </h3>
                 </div>

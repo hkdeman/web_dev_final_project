@@ -12,7 +12,8 @@ from unevu.models import *
 def home(request):    
     context_dict = {}
     context_dict['universities'] = University.objects.all()
-    
+    context_dict['top_unis'] = University.objects.order_by('-avgRating')[:5]
+    context_dict['top_courses'] = Course.objects.order_by('-avgRating')[:5]
     response = render(request, 'unevu/home.html', context=context_dict)
     
     return response

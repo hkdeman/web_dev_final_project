@@ -29,6 +29,8 @@ class University(models.Model):
     description = models.CharField(default="",max_length=1000)
     lat = models.FloatField(default=0.0)
     lng = models.FloatField(default=0.0)
+    avgRating = models.FloatField(default=0)
+    noOfRatings = models.FloatField(default=0)
 
     def __str__(self):
         return self.name+" "+str(self.lat)+" "+str(self.lng)+" "+self.description
@@ -53,6 +55,8 @@ class Course(models.Model):
     teachers = models.ManyToManyField(Teacher)
     description = models.CharField(max_length=1000, default=" ")
     url = models.URLField(blank=True)
+    avgRating= models.FloatField(default=0)
+    noOfRatings = models.FloatField(default=0)
     def __str__(self):
         return self.name
 
