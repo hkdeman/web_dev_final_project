@@ -159,7 +159,7 @@ def review_course(request,course_id):
     teachers = [teacher.name for teacher in Teacher.objects.filter(school_id= course.school_id)]
     reviews = CourseReview.objects.filter(course=course)
     context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,
-                    "reviews":reviews}
+                    "reviews":reviews, "uni_name":course.school.university.name}
     return render(request, 'unevu/subjects_review.html', context=context_dict)
 
 def add_review(request):
