@@ -1,40 +1,36 @@
 {% extends 'unevu/base.html' %}
-
 {% load staticfiles %}
+
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/university.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/sweetalert.css' %}"></link>   
+    <script src="{% static 'js/sweetalert.min.js' %}"></script>    
     <link rel="stylesheet" href="{% static 'css/jquery.rateyo.min.css' %}"></link>
     <script src="{% static 'js/jquery.rateyo.min.js' %}"></script>
-
 {% endblock %}
 
 {% block body %}
         <div class="container">
             <div class="col-lg-12 university-div">
-                    <div class="col-lg-6 university-info">
-                        <div class="col-lg-12 university-title">
-                            <div class="col-lg-9 university-name">
+            		<div class="col-lg-9 review-div">
+                            <div class="col-lg-12 university-name">
                                 <h1>{{university.name}}</h1>
                             </div>
-                            <div class="col-lg-2 col-lg-offset-1 university-stars">
-                                <div id="rateYo"></div>
-                                {% if rating %}
-                                    <p class="rating" value="{{rating}}">{{rating}}</p>   
-                                {% else %}
-                                    <p class="rating" value="{{rating}}">Not Rated</p>
-                                {% endif %}                 
-                            </div>
-                        </div>
-                        <div class="col-lg-12 university-desc">
+                {% include "unevu/review_list.html" %}  
+                	</div>
+                   
+                    <div class="col-lg-12 university-info">
+                    		<h1>Description</h1>
+                        <div class="col-lg-8 university-desc">
                             <p>{{university.description}}</p>
                         </div>
-                    </div>
-                    <div class="col-lg-6 university-maps">
+                        <div class="col-lg-4 university-maps">
                         <input class="map-lat" type="hidden" value="{{university.lat}}">
                         <input class="map-lng" type="hidden" value="{{university.lng}}">
                         <div id="map"></div>
+                   	 	</div>
                     </div>
-            </div>
+          	</div>
             <div class="col-lg-12 pick-school-detail">
                 {% csrf_token %}
                 <div class="col-lg-12 pick-school-detail-title">
@@ -52,6 +48,8 @@
                 <div class="col-lg-6 pick-course">
                 </div>
             </div>
+        </div>
+         
         <!-- Adding the scripts that need to be run after the html has been rendered -->
         <script src="{% static 'js/university.js' %}"></script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4wyk_1SARG8XS0NPUkYWQFqFa5eJq9JA&callback=initMap"></script>
