@@ -44,6 +44,9 @@ class School(models.Model):
 class Teacher(models.Model):
     name = models.CharField(max_length=30)
     school = models.ForeignKey(School, on_delete=models.CASCADE, null=True)
+    email = models.EmailField(null=True)
+    mobile = models.CharField(max_length=14, null=True)
+    imageUrl = models.URLField(null=True)
     def __str__(self):
         return self.name
 
