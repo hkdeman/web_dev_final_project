@@ -22,10 +22,15 @@
             {% if review.rating %}
             <p class="rating" value="{{review.rating}}"></p>
             {% endif %}
-
         </div>
 
-            <span class="glyphicon glyphicon-thumbs-up blue like" data-username="{{review.username.username}}" data-id={{review.id}}></span>
+        {% if user.is_authenticated %}
+            {% if review.liked %}
+                <span class="glyphicon glyphicon-thumbs-up blue like liked" title="{{review.likes}} have liked this" data-id={{review.id}}></span>
+            {% else %}
+                <span class="glyphicon glyphicon-thumbs-up blue like" title="{{review.likes}} have liked this" data-id={{review.id}}></span>                
+            {% endif %}
+        {% endif %}
         </div>
         <div class="col-lg-12">
             <p class="review-1-desc review-desc">{{review.reviewText}}</p>

@@ -149,10 +149,19 @@
     margin-top:2%;
 }
 
-.thumbs-up {
+.like {
     margin-right: -40px;
 }
 
 .button-view-more {
     margin-top: 2%;
+}
+
+.liked {
+    font-weight: bold;
+    color: #006767;
+}
+
+.like:hover {
+    zoom:1.1;
 }

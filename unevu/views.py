@@ -121,6 +121,14 @@ def university(request,uni_id):
         rating = None
         uni_desc = university.description
         uni_reviews = UniReview.objects.filter(university=university).order_by('-rating')[:3]
+        if request.user.is_authenticated:
+            likes = Like.objects.filter(username = request.user)
+            likes = [ like.review_id for like in likes]
+            for review in uni_reviews:
+                if review.id in likes:
+                    review.liked = True
+                else:
+                    review.liked = False
         try:
             rating = round(sum([int(review.rating) for review in uni_reviews])/len(uni_reviews),1)
         except:
@@ -174,6 +182,14 @@ def review_course(request,course_id):
     course = Course.objects.get(id=course_id)
     teachers = [teacher.name for teacher in Teacher.objects.filter(school_id= course.school_id)]
     reviews = CourseReview.objects.filter(course=course)
+    if request.user.is_authenticated:
+        likes = Like.objects.filter(username = request.user)
+        likes = [ like.review_id for like in likes]
+        for review in reviews:
+            if review.id in likes:
+                review.liked = True
+            else:
+                review.liked = False
     context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,
                     "reviews":reviews, "uni_name":course.school.university.name}
     return render(request, 'unevu/subjects_review.html', context=context_dict)
@@ -214,6 +230,15 @@ def add_review(request):
 def review_uni(request,uni_id):
     university = University.objects.get(id=uni_id)
     reviews = UniReview.objects.filter(university=university)
+    likes = None
+    if request.user.is_authenticated:
+        likes = Like.objects.filter(username = request.user)
+        likes = [ like.review_id for like in likes]
+        for review in reviews:
+            if review.id in likes:
+                review.liked = True
+            else:
+                review.liked = False
     context_dict = {"title":university.name.title(),"description":university.description,
                     "reviews":reviews,"lat":university.lat,"lng":university.lng}
     return render(request, 'unevu/universities_review.html', context=context_dict)
@@ -221,22 +246,35 @@ def review_uni(request,uni_id):
 def review_teacher(request,teacher_id):
     teacher = Teacher.objects.get(id=teacher_id)
     reviews = TeacherReview.objects.filter(teacher=teacher)
+    if request.user.is_authenticated:
+        likes = Like.objects.filter(username = request.user)
+        likes = [ like.review_id for like in likes]
+        for review in reviews:
+            if review.id in likes:
+                review.liked = True
+            else:
+                review.liked = False
     context_dict = {"teacher":teacher, "reviews":reviews, "uni_name":teacher.school.university.name}
     return render(request, 'unevu/teachers_review.html', context=context_dict)
 
 def like(request):
     if request.method == "POST":
-        username = request.POST.get('username')
-        review_id = int(request.POST.get('id'))
-        user = User.objects.get(username=username)
-        review = Review.objects.get(id=review_id)
-        like_review, created = Like.objects.get_or_create(username=user,review=review)
-        json_selected_course = None
-        if created:
-            like_review.save()
-            json_selected_course = json.dumps({"what" : "like"})
+        if request.user.is_authenticated:
+            username = request.user
+            review_id = int(request.POST.get('id'))
+            user = User.objects.get(username=username)
+            review = Review.objects.get(id=review_id)
+            like_review, created = Like.objects.get_or_create(username=user,review=review)
+            json_selected_course = None
+            if created:
+                like_review.save()
+                review.likes+=1
+                json_selected_course = json.dumps({"what" : "like"})
+            else:
+                Like.objects.get(username=user,review=review).delete()
+                review.likes-=1
+                json_selected_course = json.dumps({"what" : "unlike"})            
+            review.save()            
+            return HttpResponse(json_selected_course, content_type ="application/json")
         else:
-            Like.objects.get(username=user,review=review).delete()
-            json_selected_course = json.dumps({"what" : "unlike"})            
-        return HttpResponse(json_selected_course, content_type ="application/json")
-        
+            return Http404("Cannot like without logged in")
