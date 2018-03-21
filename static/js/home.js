@@ -18,4 +18,13 @@ $('.university').click(function() {
 });
 
 
-
+$(".search-bar-uni").on('input',function(){
+    var text = $(this).val();
+    $('.university').each(function(i,obj) {
+        if($(this).text().indexOf(text) == -1) {
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+});
