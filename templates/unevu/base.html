@@ -37,13 +37,13 @@
 	            <div class="container-fluid">
 	                <!-- Brand and toggle get grouped for better mobile display -->
 	                <div class="navbar-header">
-	                <a class="navbar-brand" href="#"><img class="navbar-brand-img" alt="Brand" src="{% static 'images/unevu-logo.png' %}" /></a>
+	                <a class="navbar-brand" href="{% url 'home' %}"><img class="navbar-brand-img" alt="Brand" src="{% static 'images/unevu-logo.png' %}" /></a>
 	                </div>
 	                <!-- Collect the nav links, forms, and other content for toggling -->
 	                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	                <ul class="nav navbar-nav">
-	                    <li class="active"><a href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a></li>
-	                    <li><a href="{% url 'about' %}">About</a></li>
+	                    <li class="home-li active"><a href="{% url 'home' %}">Home<span class="sr-only">(current)</span></a></li>
+	                    <li class="about-li"><a href="{% url 'about' %}">About</a></li>
 	                </ul> 
 	                <ul class="nav navbar-nav navbar-right">
 		                	{% if user.is_authenticated %}
