@@ -50,24 +50,24 @@
                         <div class="col-lg-1"></div>
                         {% for review in reviews %}
                         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 review">
-                            <div class="col-lg-4">
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
                                 <h1 class="review-title">{{review.username.username}}</h1>
                             </div>
-                            <div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 review-ratings-stars">
+                            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 review-ratings-stars">
                                 <input class="review-rating" type="hidden" value="{{review.rating}}">
-
-                                <div class="col-lg-12 univeristy-stars">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 univeristy-stars">
                                     <div data-id="{{review.rating}}" class="rateYo" data-rateyo-read-only="true" ></div>
                                     {% if review.rating %}
                                     <p class="rating" value="{{review.rating}}"></p>
                                     {% endif %}
                         
                                 </div>
+                                <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 review-like-button">
+                                    <span class="glyphicon glyphicon-thumbs-up blue thumbs-up"></span>
+                                </div>
                             </div> 
-                            <div class="col-lg-2  review-like-button">
-                                <span class="glyphicon glyphicon-thumbs-up blue"></span>
-                            </div>
-                            <div class="col-lg-12">
+                            
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <p class="review-desc">{{review.reviewText}}</p>
                             </div>
                     
@@ -78,7 +78,7 @@
                             <h2>There no reviews yet! Feel free to add one!</h2>
                         </div>
                         {% endif %}
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 button-view-more">
                             <button class="btn btn-view-more">View more...</button>                                                                            
                         </div>
                     </div>

@@ -34,7 +34,7 @@
     border:2px solid #008080;
     border-radius: 15px;
     margin-top:2%;
-    margin-right: 3%;
+    margin-right: 2%;
 }
 
 .review-desc {
@@ -147,4 +147,12 @@
 
 .review-ratings-stars {
     margin-top:2%;
+}
+
+.thumbs-up {
+    margin-right: -40px;
+}
+
+.button-view-more {
+    margin-top: 2%;
 }
