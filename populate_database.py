@@ -18,8 +18,8 @@ def add_school(name, uni):
 	school.save()
 	return school
 
-def add_teacher(name,school):
-	teacher = Teacher.objects.get_or_create(name=name, school=school)[0]
+def add_teacher(name,school,email,mobile,imageUrl):
+	teacher = Teacher.objects.get_or_create(name=name, school=school, email=email, mobile=mobile, imageUrl=imageUrl)[0]
 	teacher.save()
 	return teacher
 
@@ -120,7 +120,12 @@ for school in glasgow_courses:
 
 	print("Processing " + school["title"] + " teachers")
 	for teacher in tqdm(glasgow_teachers.get(school.get("title", []), [])):
-		add_teacher(teacher["name"], curr_school)
+		contact = teacher.get("contact", {})
+		if contact==None:
+			contact = {}
+		add_teacher(teacher["name"], curr_school, 
+			contact.get("email", ""),contact.get("mobile", ""),
+			teacher.get("image", ""))
 	print()
 
 #Sets test review for Economics 1A
