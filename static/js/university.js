@@ -169,3 +169,4 @@ $("#toggle-teacher-course").change(function() {
     }
     query_info(global_school);
 });
+

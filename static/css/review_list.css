@@ -1,0 +1,8 @@
+.liked {
+    font-weight: bold;
+    color: #006767;
+}
+
+.like:hover {
+    zoom:1.1;
+}

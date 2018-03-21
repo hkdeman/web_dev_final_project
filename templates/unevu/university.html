@@ -44,7 +44,7 @@
                         {% csrf_token %}
                         {% if user.is_authenticated %}
                         <button class="btn btn-lg btn-add-comment">Add a Review</button>
-                        {% endif %}
+                        {% endif %} 
 
                         {% if reviews %}
                         <div class="col-lg-1"></div>
@@ -74,7 +74,7 @@
                         </div>
                         {% endfor %}
                         {% else %}
-                        <div class="col-lg-12 no-reviews">
+                        <div class="col-lg-10 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12 no-reviews">
                             <h2>There no reviews yet! Feel free to add one!</h2>
                         </div>
                         {% endif %}

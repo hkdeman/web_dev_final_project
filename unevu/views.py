@@ -223,3 +223,20 @@ def review_teacher(request,teacher_id):
     reviews = TeacherReview.objects.filter(teacher=teacher)
     context_dict = {"teacher":teacher, "reviews":reviews, "uni_name":teacher.school.university.name}
     return render(request, 'unevu/teachers_review.html', context=context_dict)
+
+def like(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        review_id = int(request.POST.get('id'))
+        user = User.objects.get(username=username)
+        review = Review.objects.get(id=review_id)
+        like_review, created = Like.objects.get_or_create(username=user,review=review)
+        json_selected_course = None
+        if created:
+            like_review.save()
+            json_selected_course = json.dumps({"what" : "like"})
+        else:
+            Like.objects.get(username=user,review=review).delete()
+            json_selected_course = json.dumps({"what" : "unlike"})            
+        return HttpResponse(json_selected_course, content_type ="application/json")
+        

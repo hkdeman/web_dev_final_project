@@ -1,3 +1,6 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'css/review_list.css' %}"></link>
+
 <div class="col-lg-12 reviews">
     {% csrf_token %}
     {% if user.is_authenticated %}
@@ -22,7 +25,7 @@
 
         </div>
 
-            <span class="glyphicon glyphicon-thumbs-up blue"></span>
+            <span class="glyphicon glyphicon-thumbs-up blue like" data-username="{{review.username.username}}" data-id={{review.id}}></span>
         </div>
         <div class="col-lg-12">
             <p class="review-1-desc review-desc">{{review.reviewText}}</p>
@@ -36,3 +39,4 @@
     </div>
     {% endif %}
 </div>
+<script src="{% static 'js/review_list.js' %}"></script>

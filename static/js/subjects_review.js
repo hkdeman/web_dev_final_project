@@ -45,14 +45,3 @@ $('.btn-add-comment').click(function() {
         }, location.reload());
     });
 });
-
-
-$(".rateYo").each(function() {
-	
-	var item = $(this)
-
-    item.rateYo({
-		rating: item.data('id')
-    });
-});
-

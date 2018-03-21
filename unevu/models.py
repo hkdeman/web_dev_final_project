@@ -68,3 +68,7 @@ class UniReview(Review):
 
 class TeacherReview(Review):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+
+class Like(models.Model):
+    username = models.ForeignKey(User,on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
