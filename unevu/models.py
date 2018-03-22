@@ -84,4 +84,4 @@ class Request(models.Model):
     course = models.ForeignKey(Course,on_delete=models.CASCADE)
     teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE)    
     def __str__(self):
-        return self.username.name + " wants to add "+self.teacher.name+" as convener of "+self.course.name+" of "+self.course.school.university.name
+        return str(self.username) + " wants to add "+self.teacher.name+" as convener of "+self.course.name+" of "+self.course.school.university.name

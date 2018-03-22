@@ -201,7 +201,7 @@ def review_course(request,course_id):
                 teacher_name = request.POST.get('teacher')
                 course = Course.objects.get(id=course_id)
                 teacher = Teacher.objects.get(name=teacher_name,school=course.school)
-                requests = [request.username for request in Request.objects.all()]
+                requests = [request.username for request in Request.objects.filter(course=course)]
                 if request.user in requests:
                     return HttpResponse("Exists")
                 request = Request.objects.create(username=request.user,course=course,teacher=teacher,status=False)
