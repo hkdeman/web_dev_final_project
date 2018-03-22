@@ -49,11 +49,11 @@
 						</ul> 
 						<ul class="nav navbar-nav navbar-right">
 								{% if user.is_authenticated %}
-									<li><a href="{% url 'preferences' %}"> Preferences </a></li>							
+									<li class="preferences-li"><a href="{% url 'preferences' %}"> Preferences </a></li>							
 									<li><a href="{% url 'logout' %}">Log out, {{ user.first_name }} {{user.last_name }} </a></li>
 							{% else %}
-								<li><a href="{% url 'register' %}">Register</a></li>
-								<li><a href="{% url 'login' %}">Login</a></li>      
+								<li class="register-li"><a href="{% url 'register' %}">Register</a></li>
+								<li class="login-li"><a href="{% url 'login' %}">Login</a></li>      
 							{% endif %}                  
 						</ul>
 	                </div><!-- /.navbar-collapse -->

@@ -1,2 +1,2 @@
 $('.home-li').removeClass("active");
-$('.about-li').addClass("active");
+$('.register-li').addClass("active");

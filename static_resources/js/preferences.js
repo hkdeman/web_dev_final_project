@@ -1,3 +1,6 @@
+$('.home-li').removeClass("active");
+$('.preferences-li').addClass("active");
+
 $('.save-review-text').hide();
 $('.delete-review-text').hide();
 $('.preferences-info-details').show();
