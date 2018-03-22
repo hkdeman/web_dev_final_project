@@ -1,0 +1,8 @@
+.container {
+    padding: 0 !important;
+    margin: 3% !important;
+    font-family: 'Abel', sans-serif;
+    font-size: 24px;
+    text-align: justify;
+    width: 90%;
+}
