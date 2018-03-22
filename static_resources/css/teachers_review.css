@@ -85,3 +85,14 @@
     font-size:22px;
     padding: 2%;
 }
+
+
+.blue {
+    color: #008080;
+}
+
+.btn-add-comment {
+    float:right;
+    color:white;
+    background-color: teal;
+}

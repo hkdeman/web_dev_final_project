@@ -30,7 +30,7 @@ SECRET_KEY = '5u&vqq-qd1vzms8mr@6qe*kaxevy*v^m@5w8iq0vt(^@6%=#zj'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["wad2teamdlab7.pythonanywhere.com"]
+ALLOWED_HOSTS = ["localhost","wad2teamdlab7.pythonanywhere.com"]
 
 
 # Application definition

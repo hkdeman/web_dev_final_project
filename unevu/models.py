@@ -47,6 +47,8 @@ class Teacher(models.Model):
     email = models.EmailField(null=True)
     mobile = models.CharField(max_length=14, null=True)
     imageUrl = models.URLField(null=True)
+    avgRating= models.FloatField(default=0)
+    noOfRatings = models.FloatField(default=0)
     def __str__(self):
         return self.name
 

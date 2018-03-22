@@ -23,7 +23,7 @@
             <p class="rating" value="{{review.rating}}"></p>
             {% endif %}
         </div>
-
+        
         {% if user.is_authenticated %}
             {% if review.liked %}
                 <span class="glyphicon glyphicon-thumbs-up blue like liked" title="{{review.likes}} have liked this" data-id={{review.id}}></span>

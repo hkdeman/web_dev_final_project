@@ -46,7 +46,8 @@
 	                    <li class="about-li"><a href="{% url 'about' %}">About</a></li>
 	                </ul> 
 	                <ul class="nav navbar-nav navbar-right">
-		                	{% if user.is_authenticated %}
+							{% if user.is_authenticated %}
+								<li><a href="{% url 'preferences' %}"> Preferences </a></li>							
 		                		<li><a href="{% url 'logout' %}">Log out, {{ user.first_name }} {{user.last_name }} </a></li>
 		              	{% else %}
 		                    <li><a href="{% url 'register' %}">Register</a></li>

@@ -1,9 +1,10 @@
-var university;
+var teacher;
 $(document).ready(function() {
     var str = window.location.href;
     var n = str.lastIndexOf('/');
-    university = Number(str.substring(n + 1));
+    teacher = Number(str.substring(n + 1));
 });
+
 
 $('.btn-add-comment').click(function() {
     var textarea_styling= "<textarea id='text' style='width:100%;height:200px;padding:2%;font-family: 'Abel', sans-serif; \
@@ -25,11 +26,12 @@ $('.btn-add-comment').click(function() {
         animation: "slide-from-top",
      }, function() {
         var review = document.getElementById('text').value;
+
         var rating = Number($("input[name='rateRadio']:checked").val());
 
         $.post('/add-review', {
-            what:"university",
-            university: university,
+            what:"teacher",
+            teacher: teacher,
             review: review,
             rating: rating,
             csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
@@ -43,24 +45,3 @@ $('.btn-add-comment').click(function() {
         }, location.reload());
     });
 });
-
-
-function initMap() {
-    var lat = parseFloat($('.map-lat').val());
-    var lng = parseFloat($('.map-lng').val());
-    var zoom = 16;
-    if(lat == 0.0) {
-        zoom = 4;
-        lat = 51.5074;
-        lng = 0.1278;
-    }
-    var uluru = {lat: lat, lng: lng};
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: zoom,
-        center: uluru
-    });
-    var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
-    });
-}

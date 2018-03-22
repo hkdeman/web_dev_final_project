@@ -153,7 +153,7 @@ def school_details(request):
             school_name = request.POST.get('school')
             university = University.objects.get(id=id)
             school = School.objects.get(university_id=university.id,name=school_name)
-            teachers = [teacher.name for teacher in Teacher.objects.filter(school_id=school.id)]
+            teachers = [teacher.name for teacher in Teacher.objects.filter(school_id=school.id) if teacher.email and teacher.mobile and teacher.imageUrl]
             json_courses = json.dumps({"info" : teachers})
             return HttpResponse(json_courses, content_type ="application/json")
         elif request.POST.get("what")=="course-selected":
@@ -208,7 +208,7 @@ def add_review(request):
                 course.save()
                 course_review = CourseReview.objects.create(course=course,username=request.user,reviewText=review,rating=rating)
                 course_review.save()
-                return 
+                return HttpsResponse("success")                
             elif what == "university":
                 uni_id = request.POST.get('university')
                 review = request.POST.get('review')
@@ -219,9 +219,18 @@ def add_review(request):
                 university.save()
                 uni_review = UniReview.objects.create(university=university,username=request.user,reviewText=review,rating=rating)
                 uni_review.save()
-                return
-
-            
+                return HttpsResponse("success")
+            elif what == "teacher":
+                uni_id = request.POST.get('teacher')
+                review = request.POST.get('review')
+                rating = request.POST.get('rating')
+                teacher = Teacher.objects.get(id = int(uni_id))
+                teacher.avgRating  = (teacher.avgRating * teacher.noOfRatings + int(rating))/(teacher.noOfRatings+1)
+                teacher.noOfRatings = teacher.noOfRatings+1
+                teacher.save()
+                teacher_review = TeacherReview.objects.create(teacher=teacher,username=request.user,reviewText=review,rating=rating)
+                teacher_review.save()
+                return HttpsResponse("success")
     else:
         return HttpResponse("Error")
 
@@ -278,3 +287,45 @@ def like(request):
             return HttpResponse(json_selected_course, content_type ="application/json")
         else:
             return Http404("Cannot like without logged in")
+
+
+def preferences(request):
+    if request.user.is_authenticated:
+        if request.method == "GET":
+            reviews = None
+            reviews = Review.objects.filter(username_id=request.user.id)     
+            likes = Like.objects.filter(username = request.user)
+            likes = [ like.review_id for like in likes]
+            for review in reviews:
+                if review.id in likes:
+                    review.liked = True
+                else:
+                    review.liked = False
+            context_dict = {"reviews":reviews}
+            return render(request, 'unevu/preferences.html', context=context_dict)
+        elif request.method == "POST":
+            what = request.POST.get('what')
+            if what == "delete-account":
+                request.user.delete()
+                return HttpResponse("success")
+            elif what == "update-details":
+                first_name = request.POST.get("first_name")
+                last_name = request.POST.get("last_name")
+                request.user.first_name = first_name
+                request.user.last_name = last_name
+                request.user.save()
+                return HttpResponse("success")
+    else:
+        return HttpResponseRedirect('/')
+
+def update_review(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            id = request.POST.get('id')
+            reviewText = request.POST.get('review')
+            rating = request.POST.get('rating')
+            review = Review.objects.get(id=id)
+            review.reviewText = reviewText
+            review.rating = rating
+            review.save()
+            return HttpResponse("success")

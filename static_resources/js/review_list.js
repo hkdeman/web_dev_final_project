@@ -18,6 +18,8 @@ $('.like').click(function(){
     );
 });
 
+
+
 $(".rateYo").each(function() {
 	var item = $(this);
     item.rateYo({

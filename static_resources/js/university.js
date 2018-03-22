@@ -25,8 +25,6 @@ function query_info(school) {
         what = "query-teachers";
         class_type = "teacher"
     }
-    $('.type').empty().append("Subject");
-
         $.post('/school-details',{ 
             university: university,
             school:school,
@@ -126,9 +124,7 @@ $('.btn-add-comment').click(function() {
 
 
 $(".rateYo").each(function() {
-	
-	var item = $(this)
-
+	var item = $(this);
     item.rateYo({
 		rating: item.data('id')
     });
@@ -163,11 +159,15 @@ $('.btn-view-more').click(function() {
 
 $("#toggle-teacher-course").change(function() {
     if($(this).prop('checked')) {
+        $(".type").empty().append("Teacher");
         choosingTeachers = true;
     } else {
+        $(".type").empty().append("Course");        
         choosingTeachers = false;
     }
+
     query_info(global_school);
+
 });
 
 

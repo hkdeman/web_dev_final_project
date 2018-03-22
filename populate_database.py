@@ -38,7 +38,7 @@ def add_teacher_to_course(course, teacher):
 	course.save()
 
 def add_user(username, email, first_name, last_name, password = "hunter2"):
-	user, created = User.objects.get_or_create(username=username, email=email)
+	user, created = User.objects.get_or_create(username=username, email=email,first_name=first_name,last_name=last_name)
 	if not created:
 	    user.set_password(password)
 	    user.first_name = first_name

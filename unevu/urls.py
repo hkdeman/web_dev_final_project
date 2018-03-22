@@ -15,5 +15,7 @@ urlpatterns = [
     url(r'^add-review',views.add_review,name='add-review'),
     url(r'^review-uni/(?P<uni_id>\d+)$',views.review_uni,name='review-uni'),
     url(r'^review-teacher/(?P<teacher_id>\d+)$',views.review_teacher,name='review-teacher'),   
-    url(r'^like',views.like,name='like'),     
+    url(r'^like',views.like,name='like'),    
+    url(r'^preferences',views.preferences,name='preferences'),    
+    url(r'^update-review',views.update_review,name='update-review'),    
 ] 
