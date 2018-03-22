@@ -16,12 +16,12 @@
             <div class="col-lg-6 col-lg-offset-4 col-md-12 col-sm-12 col-xs-12">
                 <h2 class="preferences-info-title">Details</h2>
             </div>            
-            <div class="col-lg-3 col-lg-offset-1 col-md-3 col-sm-2 col-xs-1 preferences-buttons">
+            <div class="col-lg-3 col-lg-offset-1 col-md-4 col-sm-4 col-xs-4 preferences-buttons">
                 <button class="btn btn-lg btn-teal btn-preferences-info-details" >Details</button>
                 <button class="btn btn-lg btn-teal btn-preferences-info-reviews" >Reviews</button>
                 <button class="btn btn-lg btn-teal btn-preferences-info-settings" >Settings</button>                
             </div>
-            <div class="col-lg-8 col-md-9 col-sm-10 col-xs-11 preferences-info-details">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 preferences-info-details">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 first-name-div">
                         <h2><nobr><span class="label-first-name">
@@ -41,20 +41,20 @@
                 </div>
             </div>
 
-            <div class="col-lg-8 col-md-9 col-sm-10 col-xs-11 preferences-info-reviews">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 preferences-info-reviews">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             {% csrf_token %}
                             {% if reviews %}
                                     {% for review in reviews %}
-                                    <div class="col-lg-12 review review-{{review.id}}-div">
-                                        <div class="col-lg-6">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 review review-{{review.id}}-div">
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                             <h1 class="review-1-name review-title">{{review.username.username}}</h1>
                                         </div>
                                 
-                                        <div class="col-lg-6  review-like-button">
+                                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12  review-like-button">
                                             <input class="review-rating" type="hidden" value="{{review.rating}}">
                                 
-                                        <div class="col-lg-4 col-lg-offset-0 univeristy-stars">
+                                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 univeristy-stars">
                                             <div data-id="{{review.rating}}" id="{{review.id}}-rating" class="rateYo" data-rateyo-read-only="true"></div>
                                             {% if review.rating %}
                                             <p class="rating" value="{{review.rating}}"></p>
@@ -69,11 +69,11 @@
                                             {% endif %}
                                         {% endif %}
                                         </div>
-                                        <div class="col-lg-12">
-                                            <div class="col-lg-11">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <div class="col-lg-11 col-md-10 col-sm-10 col-xs-10">
                                                 <p class="review-1-desc {{review.id}}-review review-desc" contenteditable="false">{{review.reviewText}}</p>
                                             </div>
-                                            <div class="col-lg-1 edit-div">
+                                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 edit-div">
                                                 <div class="col-lg-8 col-lg-offset-4 col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 col-xs-8 col-xs-offset-4 edit-glyphicon-div">
                                                     <span class="glyphicon glyphicon-pencil blue edit {{review.id}}-edit" data-id={{review.id}}></span>                                              
                                                 </div>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-md-9 col-sm-10 col-xs-11 preferences-info-settings">
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 preferences-info-settings">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">                    
                         <button class="btn btn-lg btn-danger delete-account">Delete Account</button>
                     </div>

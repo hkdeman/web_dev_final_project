@@ -1,6 +1,9 @@
 var university = "";
 var school = "";
 
+$('.about-li').removeClass("active");
+$('.home-li').addClass("active");
+
 $('.university').click(function() {
     $('.pick-field').empty();
     $('.pick-subject').empty();

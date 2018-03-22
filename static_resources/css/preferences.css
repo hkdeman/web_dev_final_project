@@ -113,3 +113,16 @@
     margin-left:2%;
 }
 
+
+
+@media only screen and (max-width: 800px) {
+    .preferences-info-title {
+        margin-top:20%;
+    }
+
+    .review {
+        width:130%;
+    }
+    
+}
+

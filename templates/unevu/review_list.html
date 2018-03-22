@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'css/review_list.css' %}"></link>
 
-<div class="col-lg-12 reviews">
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 reviews">
     {% csrf_token %}
     {% if user.is_authenticated %}
     <button class="btn btn-lg btn-add-comment">Add a Review</button>
@@ -9,15 +9,15 @@
 
     {% if reviews %}
     {% for review in reviews %}
-    <div class="col-lg-12 review review-1">
-        <div class="col-lg-6">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 review review-1">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <h1 class="review-1-name review-title">{{review.username.username}}</h1>
         </div>
 
-        <div class="col-lg-6  review-like-button">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 review-like-button">
             <input class="review-rating" type="hidden" value="{{review.rating}}">
 
-        <div class="col-lg-4 col-lg-offset-0 univeristy-stars">
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 univeristy-stars">
             <div data-id="{{review.rating}}" class="rateYo" data-rateyo-read-only="true" ></div>
             {% if review.rating %}
             <p class="rating" value="{{review.rating}}"></p>
@@ -32,14 +32,14 @@
             {% endif %}
         {% endif %}
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p class="review-1-desc review-desc">{{review.reviewText}}</p>
         </div>
 
     </div>
     {% endfor %}
     {% else %}
-    <div class="col-lg-12 no-reviews">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-reviews">
         <h2>There no reviews yet! Feel free to add one!</h2>
     </div>
     {% endif %}

@@ -79,3 +79,19 @@
 .university-location-title {
     text-align: center;
 }
+
+
+
+
+@media only screen and (max-width: 800px) {
+    
+    .review-subject {
+        margin-top:5%;
+    }
+
+    #map {
+        margin-bottom:4%;
+    }
+
+}
+

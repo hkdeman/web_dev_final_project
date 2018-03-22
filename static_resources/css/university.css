@@ -87,8 +87,9 @@
     margin-bottom: 1%;
 }
 
-.btn-primary {
+.btn-default {
     background-color: teal !important;
+    color:white !important;
 }
 
 .pick-school-detail {
@@ -165,3 +166,32 @@
 .like:hover {
     zoom:1.1;
 }
+
+.pick-from-here {
+    display: none;
+}
+
+
+
+@media only screen and (max-width: 800px) {
+    
+    .reviews {
+        margin-left:3%;
+    }
+
+    .review {
+        margin-bottom: 2%;
+    }
+
+    .pick-school-detail {
+        margin-left:3%;
+        margin-top:3%;
+    }
+
+    .pick-course {
+        margin-top:2%;
+    }
+
+
+}
+

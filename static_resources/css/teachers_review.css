@@ -2,7 +2,7 @@
     padding:0 !important;
     margin:3% !important;   
     font-family: 'Abel', sans-serif;
-    width:100%;
+    width:95%;
 }
 
 .review-teacher {
@@ -96,3 +96,14 @@
     color:white;
     background-color: teal;
 }
+
+
+
+@media only screen and (max-width: 800px) {
+    
+    .review-teacher {
+        margin-top:5%;
+    }
+
+}
+

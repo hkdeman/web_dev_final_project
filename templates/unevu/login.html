@@ -7,14 +7,14 @@
 
 {% block body %}
 	    <div class="container">
-	        <div class="col-lg-12 title">
+	        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title">
 	            <h2>Enter the world of no regrets</h2>
 	        </div>
-	        <div class="col-lg-12 panel login-panel">
-	            <div class="col-lg-12 login-title">
+	        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel login-panel">
+	            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 login-title">
 	                <h1>Login</h1>
 	            </div>
-	            <div class="col-lg-6 panel form-panel login-form">
+	            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 panel form-panel login-form">
                 		<form role="form" method="post" action="">
 					{% csrf_token %}		
 	                    <div class="form-group">
@@ -30,16 +30,16 @@
 	                        <label class="form-check-label" for="exampleCheck1">Keep me Logged in</label>
 	                    </div>
 	                    <div class="center">
-	                        <button type="submit" name="submit" value="Login" class="btn btn-primary center">Log in</button>
+	                        <button type="submit" name="submit" value="Login" class="btn btn-teal btn-lg center">Log in</button>
 	                    </div>
 	            </div>
-	            <div class="col-lg-6 panel form-panel guest">
+	            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 panel form-panel guest">
 	                <h2>OR</h2>
 	                <hr />
 	                <br />
 	                <h3>Surf without any hassle of logging in</h3>
 	                <br />
-	                <button type="submit" name="home" class="btn btn-primary center">Start by selecting the course</button>
+	                <button type="submit" name="home" class="btn btn-teal btn-lg center">Start by selecting the course</button>
 	            </div>
 	            </form>
 	        </div>

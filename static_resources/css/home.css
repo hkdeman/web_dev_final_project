@@ -2,7 +2,7 @@
     padding:0 !important;
     margin:3% !important;   
     font-family: 'Abel', sans-serif;
-    width:75%;
+    width:80%;
 }
 
 
@@ -24,6 +24,8 @@
 .introduction-img {
     padding-left: 5%;
     height: 350px;
+    max-width: 120%;
+    max-height:80%;
 }
 
 .top-recommendation-div {
@@ -121,8 +123,38 @@
     height:50px;
 }
 
-@media only screen and (min-width: 600px) {
+input {
+    font-size:24px;
+}
+
+.search-bar-uni::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-size: 24px;
+}
+
+@media only screen and (min-width: 1200px) {
     .search-bar-uni {
         margin-top:30%;
     }
 }
+
+@media only screen and (max-width: 800px) {
+    .introduction-title {
+        margin-top:15% !important;
+    }
+
+    .top-universities-div, .top-subjects-div {
+        width:100%;
+        margin-left:2%;
+        margin-bottom: 2%;
+    }
+    
+    .introduction-img{
+        margin-left:-3%;
+        margin-top:2%;
+    }
+
+    .top-recommendation-title {
+        margin-top:-10%;
+    }
+}
+

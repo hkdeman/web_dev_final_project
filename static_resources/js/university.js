@@ -19,12 +19,22 @@ $(".school").click(function() {
 });
 
 function query_info(school) {
+
     var what = "query-subjects";
     var class_type = "course";
+
     if (choosingTeachers) {
         what = "query-teachers";
         class_type = "teacher"
     }
+
+    if (window.matchMedia('(max-width: 800px)').matches) {
+        $('.pick-from-here').css({
+            'display': 'unset',
+            'margin-top':'2%',
+        });
+    }
+
         $.post('/school-details',{ 
             university: university,
             school:school,
@@ -162,12 +172,11 @@ $("#toggle-teacher-course").change(function() {
         $(".type").empty().append("Teacher");
         choosingTeachers = true;
     } else {
-        $(".type").empty().append("Course");        
+        $(".type").empty().append("Course");   
         choosingTeachers = false;
     }
 
     query_info(global_school);
-
 });
 
 
@@ -190,3 +199,4 @@ $('.like').click(function(){
         }
     );
 });
+

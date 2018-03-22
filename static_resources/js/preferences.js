@@ -90,7 +90,7 @@ $('.save-review-text').click(function() {
         rating:rating,
         csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
     },function(data) {
-        liked_before = Number(elem.attr('title').split(" ")[0]);        
+        liked_before = Number(elem.attr('title').split(" ")[0]);
             if(data.what=="like") {
                 liked_before+=1;
                 elem.addClass(" liked");
@@ -102,6 +102,8 @@ $('.save-review-text').click(function() {
         }
     );
 });
+
+
 
 
 $('.delete-review-text').click(function() {

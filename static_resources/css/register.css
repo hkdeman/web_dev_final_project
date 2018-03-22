@@ -49,3 +49,14 @@
     padding-left:5%;
     padding-right:5%;
 }
+
+.btn-teal {
+    background-color:teal;
+    color:white;
+}
+
+@media only screen and (max-width: 800px) {
+    .title {
+        margin-top:2%;
+    }
+}

@@ -8,40 +8,40 @@
 
 {% block body %}
         <div class="container">
-            <div class="col-lg-12 introduction-div">
-                    <div class="col-lg-12 introduction-title">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 introduction-div">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 introduction-title">
                         <h1>Welcome To The New Way Of Choosing</h1>
                     </div>
             </div>
-                <div class="col-lg-12 pick-university-detail">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pick-university-detail">
                         {% csrf_token %}
-                        <div class="col-lg-12 pick-university-detail-title">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pick-university-detail-title">
                             <h1>Choose A University</h1>
                         </div>
-                        <div class="col-lg-6 search-university">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 search-university">
                             <input type="text" class="search-bar-uni" placeholder="Search University" aria-label="Search">
                         </div>
-                        <div class="col-lg-6 pick-university">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 pick-university">
                             {% for university in universities %}
                                 <button class="btn btn-teal full university"><h3>{{university.name}}</h3></button>
                             {% endfor %}
                         </div>
                     </div>
-            <div class="col-lg-12 introduction-div">
-                <div class="col-lg-6 introduction-img-title">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 introduction-div">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 introduction-img-title">
                     <h1>Go to a place that <br>
                         you can call home</h1>
                 </div>
-                <div class="col-lg-6 introduction-img">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 introduction-img">
                         <img src="{% static 'images/home_background.jpg' %}" class="introduction-img">
                 </div>
             </div>
 
-            <div class="col-lg-12 top-recommendation-div">
-                <div class="col-lg-12 top-recommendation-title">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-recommendation-div">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 top-recommendation-title">
                     <h1>Pick From The Best Of The Best</h1>
                 </div>
-                <div class="col-lg-6 top-universities-div">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 top-universities-div">
                     <h1 class="top-universities-title"> Top Universities </h1>
                     <br>
                     <h3>
@@ -52,7 +52,7 @@
                         </ul>
                     </h3>
                 </div>
-                <div class="col-lg-6 top-subjects-div">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 top-subjects-div">
                     <h1 class="top-subjects-title"> Top Subjects </h1>
                     <br>
                     <h3>

@@ -14,17 +14,21 @@
 {% block body %}
         <div class="container">
             <div class="col-lg-12 university-div">
-            		<div class="col-lg-9 review-div">
-                            <div class="col-lg-4 university-name">
+            		<div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 review-div">
+                            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 university-name">
                                 <h1>{{university.name}}</h1>
                             </div>
-                            <div class="col-lg-2 col-lg-offset-1 university-stars">
-                                <div id="rateYo"></div>
-                                {% if rating %}
-                                    <p class="rating" value="{{rating}}">{{rating}}</p>   
-                                {% else %}
-                                    <p class="rating" value="{{rating}}">Not Rated</p>
-                                {% endif %}                 
+                            <div class="col-lg-2 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12 university-stars">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                    <div id="rateYo"></div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                                    {% if rating %}
+                                        <p class="rating" value="{{rating}}">{{rating}}</p>   
+                                    {% else %}
+                                        <p class="rating" value="{{rating}}">Not Rated</p>
+                                    {% endif %}     
+                                </div>
                             </div>
                 	</div>
                    
@@ -33,10 +37,10 @@
                         <div class="col-lg-7 col-md-6 col-sm-12 col-xs-12  university-desc">
                             <p>{{university.description}}</p>
                         </div>
-                        <div class="col-lg-4 col-lg-offset-1 col-md-6 col-sm-12 col-xs-12  university-maps">
-                        <input class="map-lat" type="hidden" value="{{university.lat}}">
-                        <input class="map-lng" type="hidden" value="{{university.lng}}">
-                        <div id="map"></div>
+                        <div class="col-lg-4 col-lg-offset-1 col-md-6 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1  university-maps">
+                            <input class="map-lat" type="hidden" value="{{university.lat}}">
+                            <input class="map-lng" type="hidden" value="{{university.lng}}">
+                            <div id="map"></div>
                    	 	</div>
                     </div>
               </div>
@@ -89,15 +93,15 @@
                         </div>
                     </div>
         
-            <div class="col-lg-2 col-lg-offset-10 col-md-2 col-md-offset-10 col-sm-2 col-sm-offset-9 col-xs-2 col-xs-offset-8 toggle-teacher-course-div">
+            <div class="col-lg-2 col-lg-offset-10 col-md-2 col-md-offset-10 col-sm-2 col-sm-offset-9 col-xs-3 col-xs-offset-9 toggle-teacher-course-div">
                 <input id="toggle-teacher-course" type="checkbox" data-toggle="toggle" data-on="Teachers" data-off="Courses" data-height="50" data-width="120">
             </div>
             <div class="col-lg-10 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12 pick-school-detail">
                 {% csrf_token %}
-                <div class="col-lg-12 pick-school-detail-title">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pick-school-detail-title">
                     <h1>Choose A <span class="type">School</span></h1>
                 </div>
-                <div class="col-lg-6 pick-school">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 pick-school">
                     {% if schools %}
                         {% for school in schools %}
                             <button class="btn btn-teal full school"><h3>{{school}}</h3></button>
@@ -106,7 +110,10 @@
                         <h3> There are no schools setup yet! </h3>
                     {% endif %}
                 </div>
-                <div class="col-lg-6 pick-course">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 pick-from-here">
+                    <h2>Pick From Here</h2>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 pick-course">
                 </div>
             </div>
         </div>
