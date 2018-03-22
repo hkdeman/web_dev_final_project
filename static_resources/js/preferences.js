@@ -1,8 +1,8 @@
 $('.save-review-text').hide();
+$('.delete-review-text').hide();
 $('.preferences-info-details').show();
 $('.preferences-info-reviews').hide();
 $('.preferences-info-settings').hide();
-
 
 $('.btn-preferences-info-details').click(function(){
     $('.preferences-info-title').empty();
@@ -68,6 +68,7 @@ $('.edit').click(function() {
         $(this).addClass("edited");
         $("#"+id+"-rating").rateYo("option", "readOnly", false);
         $('.'+id+'-save').show();
+        $('.'+id+'-delete').show();        
     }
 });
 
@@ -78,10 +79,12 @@ $('.save-review-text').click(function() {
     $("."+id+"edit").removeClass("edited");
     $("#"+id+"-rating").rateYo("option", "readOnly", true);
     $(this).hide();
-
+    $('.'+id+'-delete').hide();    
+    
     var review = $("."+id+"-review").text();
     var rating = Math.round($("#"+id+"-rating").rateYo("option", "rating"));
     $.post('/update-review',{
+        what:"update",        
         id:id,
         review:review,
         rating:rating,
@@ -99,6 +102,41 @@ $('.save-review-text').click(function() {
         }
     );
 });
+
+
+$('.delete-review-text').click(function() {
+    var id = $(this).data("id");
+    swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover your review",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+
+            $.post('/update-review',{
+                what:"delete",
+                id:id,
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value
+            },function(data) {
+                    swal("Your review has been deleted!", {
+                        icon: "success",
+                    }).then((value) => {
+                        $('.review-'+id+'-div').remove();                            
+                    });
+                }
+            );
+
+        } else {
+            swal("Your review is fine!");
+          }
+        });
+});
+
+
+
 
 
 $('.delete-account').click(function(){

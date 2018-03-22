@@ -46,7 +46,7 @@
                             {% csrf_token %}
                             {% if reviews %}
                                     {% for review in reviews %}
-                                    <div class="col-lg-12 review review-1">
+                                    <div class="col-lg-12 review review-{{review.id}}-div">
                                         <div class="col-lg-6">
                                             <h1 class="review-1-name review-title">{{review.username.username}}</h1>
                                         </div>
@@ -77,7 +77,11 @@
                                                 <div class="col-lg-8 col-lg-offset-4 col-md-8 col-md-offset-4 col-sm-8 col-sm-offset-4 col-xs-8 col-xs-offset-4 edit-glyphicon-div">
                                                     <span class="glyphicon glyphicon-pencil blue edit {{review.id}}-edit" data-id={{review.id}}></span>                                              
                                                 </div>
-                                                <button class="btn btn-teal btn-lg {{review.id}}-save save-review-text" data-id="{{review.id}}">Save</button>                        
+                                                <br><br>                                                
+                                                <button class="btn btn-teal btn-lg {{review.id}}-save save-review-text" data-id="{{review.id}}">Save</button>
+                                                <br><br>
+                                                <button class="btn btn-danger {{review.id}}-delete delete-review-text" data-id="{{review.id}}">Delete</button>                                                                                          
+                                                <br><br>                                                
                                             </div>
                                         </div>
                                     </div>

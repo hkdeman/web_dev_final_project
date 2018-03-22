@@ -321,11 +321,19 @@ def preferences(request):
 def update_review(request):
     if request.method == "POST":
         if request.user.is_authenticated:
-            id = request.POST.get('id')
-            reviewText = request.POST.get('review')
-            rating = request.POST.get('rating')
-            review = Review.objects.get(id=id)
-            review.reviewText = reviewText
-            review.rating = rating
-            review.save()
-            return HttpResponse("success")
+            what = request.POST.get('what')
+            if what == "update":    
+                id = request.POST.get('id')
+                reviewText = request.POST.get('review')
+                rating = request.POST.get('rating')
+                review = Review.objects.get(id=id)
+                review.reviewText = reviewText
+                review.rating = rating
+                review.save()
+                return HttpResponse("success")
+            if what == "delete":
+                id = request.POST.get('id')
+                review = Review.objects.get(id=id)
+                review.delete()
+                return HttpResponse("success")                
+                                
