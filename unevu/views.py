@@ -179,20 +179,34 @@ def school_details(request):
 
 
 def review_course(request,course_id):
-    course = Course.objects.get(id=course_id)
-    teachers = [teacher.name for teacher in Teacher.objects.filter(school_id= course.school_id)]
-    reviews = CourseReview.objects.filter(course=course)
-    if request.user.is_authenticated:
-        likes = Like.objects.filter(username = request.user)
-        likes = [ like.review_id for like in likes]
-        for review in reviews:
-            if review.id in likes:
-                review.liked = True
-            else:
-                review.liked = False
-    context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,
-                    "reviews":reviews, "uni_name":course.school.university.name}
-    return render(request, 'unevu/subjects_review.html', context=context_dict)
+    if request.method == "GET":
+        course = Course.objects.get(id=course_id)
+        teachers = [teacher.name for teacher in Teacher.objects.filter(school_id= course.school_id)]
+        reviews = CourseReview.objects.filter(course=course)
+        if request.user.is_authenticated:
+            likes = Like.objects.filter(username = request.user)
+            likes = [ like.review_id for like in likes]
+            for review in reviews:
+                if review.id in likes:
+                    review.liked = True
+                else:
+                    review.liked = False
+        context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,
+                        "reviews":reviews, "uni_name":course.school.university.name}
+        return render(request, 'unevu/subjects_review.html', context=context_dict)
+    elif request.method == "POST":
+        if request.user.is_authenticated:
+            what = request.POST.get('what')
+            if what == "update-teacher":
+                teacher_name = request.POST.get('teacher')
+                course = Course.objects.get(id=course_id)
+                teacher = Teacher.objects.get(name=teacher_name,school=course.school)
+                requests = [request.username for request in Request.objects.all()]
+                if request.user in requests:
+                    return HttpResponse("Exists")
+                request = Request.objects.create(username=request.user,course=course,teacher=teacher,status=False)
+                request.save()
+                return HttpResponse("Success")
 
 def add_review(request):
     if request.user.is_authenticated:

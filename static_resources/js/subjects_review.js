@@ -5,6 +5,8 @@ $(document).ready(function() {
     course = Number(str.substring(n + 1));
 });
 
+$('.btn-save-teacher').hide();
+
 
 $('.btn-add-comment').click(function() {
     var textarea_styling= "<textarea id='text' style='width:100%;height:200px;padding:2%;font-family: 'Abel', sans-serif; \
@@ -45,3 +47,28 @@ $('.btn-add-comment').click(function() {
         }, location.reload());
     });
 });
+
+
+
+$('.teacher-list-name').click(function() {
+    $('.btn-save-teacher').show();
+    var name = $(this).text();
+    $('.selected-teacher').empty().append(name);
+});
+
+$('.btn-save-teacher').click(function(){
+    var name = $('.selected-teacher').text();
+    $.post('/review-course/'+course, {
+        what:"update-teacher",
+        teacher: name,
+        csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+        },function(data) {            
+        if (data == "Success") {
+            swal("Submitted!", "Your request has been submitted! Our team will look into it ASAP!", "success");                            
+        } else if (data=="Exists") {
+            swal("Exists", "You cannot add two requests for a subject! Please wait for your last request to be resolved!", "error");                
+        } else {
+            swal("Error!", "The review could not be added", "error");                            
+        }
+    });
+})

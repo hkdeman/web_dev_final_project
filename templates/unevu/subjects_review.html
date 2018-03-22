@@ -32,16 +32,31 @@
                         </div>
                     {% else %}
                         <div class="col-lg-12 no-teacher">
-                            <h2>Sorry there are no teachers lined. Add the teacher link below!</h2>
-                            <div class="dropdown teacher-dropdown">
-                                <button class="btn btn-lg dropdown-toggle teacher-selector" type="button" data-toggle="dropdown">Teachers
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu pre-scrollable">
-                                    {% for teacher in teachers %}
-                                        <li><a href="#">{{teacher}}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                            <h2>Sorry there are no teachers lined. 
+                                {% if user.is_authenticated %}
+                                    Add the teacher link below!
+                                {% endif %} 
+                            </h2>
+                                
+                            {% if user.is_authenticated %}
+                                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+                                    <div class="dropdown teacher-dropdown">
+                                        <button class="btn btn-lg dropdown-toggle teacher-selector" type="button" data-toggle="dropdown">Teachers
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu pre-scrollable">
+                                            {% for teacher in teachers %}
+                                                <li><a class="teacher-list-name">{{teacher}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8 col-md-4 col-sm-4 col-xs-4">
+                                    <h3 class="selection-teacher">Selected : <strong><span class="selected-teacher">No Teacher Selected</span></strong></h3>
+                                </div>
+                                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+                                    <button class="btn btn-teal btn-lg btn-save-teacher">Submit</button>
+                                </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                 </div>

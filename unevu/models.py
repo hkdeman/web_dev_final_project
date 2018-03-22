@@ -77,3 +77,11 @@ class TeacherReview(Review):
 class Like(models.Model):
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
+
+class Request(models.Model):
+    username = models.ForeignKey(User,on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher,on_delete=models.CASCADE)    
+    def __str__(self):
+        return self.username.name + " wants to add "+self.teacher.name+" as convener of "+self.course.name+" of "+self.course.school.university.name
