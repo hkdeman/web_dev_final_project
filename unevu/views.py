@@ -192,7 +192,7 @@ def review_course(request,course_id):
                 else:
                     review.liked = False
         context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,
-                        "reviews":reviews, "uni_name":course.school.university.name}
+                        "reviews":reviews, "uni_name":course.school.university.name,"uni_id":course.school.university.id}
         return render(request, 'unevu/subjects_review.html', context=context_dict)
     elif request.method == "POST":
         if request.user.is_authenticated:
@@ -263,7 +263,7 @@ def review_uni(request,uni_id):
             else:
                 review.liked = False
     context_dict = {"title":university.name.title(),"description":university.description,
-                    "reviews":reviews,"lat":university.lat,"lng":university.lng}
+                    "reviews":reviews,"lat":university.lat,"lng":university.lng,"uni_id":university.id}
     return render(request, 'unevu/universities_review.html', context=context_dict)
 
 def review_teacher(request,teacher_id):
@@ -277,7 +277,7 @@ def review_teacher(request,teacher_id):
                 review.liked = True
             else:
                 review.liked = False
-    context_dict = {"teacher":teacher, "reviews":reviews, "uni_name":teacher.school.university.name}
+    context_dict = {"teacher":teacher, "reviews":reviews, "uni_name":teacher.school.university.name,"uni_id":teacher.school.university.id}
     return render(request, 'unevu/teachers_review.html', context=context_dict)
 
 def like(request):
