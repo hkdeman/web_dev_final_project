@@ -183,6 +183,7 @@ def review_course(request,course_id):
         course = Course.objects.get(id=course_id)
         teachers = [teacher.name for teacher in Teacher.objects.filter(school_id= course.school_id)]
         reviews = CourseReview.objects.filter(course=course)
+        teacher = course.convener
         if request.user.is_authenticated:
             likes = Like.objects.filter(username = request.user)
             likes = [ like.review_id for like in likes]
@@ -191,7 +192,7 @@ def review_course(request,course_id):
                     review.liked = True
                 else:
                     review.liked = False
-        context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,
+        context_dict = {"title":course.name.title(),"description":course.description,"teachers":teachers,"teacher":teacher,
                         "reviews":reviews, "uni_name":course.school.university.name,"uni_id":course.school.university.id}
         return render(request, 'unevu/subjects_review.html', context=context_dict)
     elif request.method == "POST":

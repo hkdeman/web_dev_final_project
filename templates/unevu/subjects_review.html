@@ -27,8 +27,16 @@
                     </div>
                     {% if teacher %}
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 subject-desc-teacher">
-                            <h2>{{teacher}}</h2>
-                            <p>{{teacher_description}}</p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 teacher-details">
+			                    <h2 class="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-lg-offset-2">Contact Details</h2>
+			                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 teacher-contact">
+			                        <h3>Email: {{teacher.email}}</h3>
+			                        <h3>Phone: {{teacher.mobile}}</h3>                
+			                    </div>
+			                    <div class="col-lg-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4 teacher-image">
+			                        <img src="{{teacher.imageUrl}}"/>                    
+			                    </div>
+			                </div>
                         </div>
                     {% else %}
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 no-teacher">

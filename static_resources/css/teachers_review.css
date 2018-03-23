@@ -97,7 +97,9 @@
     background-color: teal;
 }
 
-
+.teacher-image img {
+	max-width:300px;
+}
 
 @media only screen and (max-width: 800px) {
     
