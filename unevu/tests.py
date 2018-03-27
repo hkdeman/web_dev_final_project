@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.staticfiles import finders
 from django.conf import settings
 from unevu.models import *
-import unevu.test_utils as test_utils
+import unevu.utils as util
 
 import os
 
@@ -25,10 +25,108 @@ class GeneralTestCases(TestCase):
 class ModelTestCases(TestCase):
     def test_user_profile_model(self):
         # Create a user
-        user = test_utils.create_user()
+        user = util.add_user("mrtest1", "mrtest1@test.com", "Test1", "User")
 
         # Check there is only the saved user
         self.assertEqual(1, User.objects.count(), "Number of Profiles must be 1")
+    def test_university_model(self):
+        uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
+        unis_in_db = University.objects.all()
+        self.assertEqual(1, unis_in_db.count())
+        uni_in_db = unis_in_db[0]
+        self.assertEqual(uni, uni_in_db)
+        self.assertEqual(uni_in_db.name, "Test Uni")
+        self.assertEqual(uni_in_db.location, "Test Location")
+        self.assertEqual(uni_in_db.description, "Test Description")
+        self.assertEqual(uni_in_db.noOfRatings, 0)
+        self.assertEqual(uni_in_db.avgRating, 0)
+        self.assertEqual(uni_in_db.lat, 55.8721211)
+        self.assertEqual(uni_in_db.lng, -4.2882005)
+
+    def test_uni_review(self):
+        user = util.add_user("mrtest1", "mrtest1@test.com", "Test1", "User")
+        user2 = util.add_user("mrtest2", "mrtest2@test.com", "Test2", "User")
+        uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
+        
+        #Check both reviews save
+        util.add_uni_review(uni, user, "Review test", 3)
+        uni_reviews = UniReview.objects.all();
+        self.assertEqual(1, uni_reviews.count())
+        util.add_uni_review(uni, user2, "Review test 2", 4)
+        uni_reviews = UniReview.objects.all();
+        self.assertEqual(2, uni_reviews.count())
+
+        first_review = uni_reviews[0]
+        self.assertEqual(first_review.university, uni)
+        self.assertEqual(first_review.reviewText, "Review test")
+
+        #Check if ratings are calculated properly
+        uni_in_db = University.objects.all()[0]
+        self.assertEqual(uni_in_db.avgRating, 3.5)
+        self.assertEqual(uni_in_db.noOfRatings, 2)
+
+    def test_school_model(self):
+        uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
+        school = util.add_school("School name", uni)
+        schools = School.objects.all()
+        self.assertEqual(1, schools.count())
+        self.assertEqual(schools[0].name, "School name")
+        self.assertEqual(schools[0].university, uni)
+
+    def test_course_model(self):
+        uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
+        school = util.add_school("School name", uni)
+        util.add_course("Course title", school, "https://www.gla.ac.uk" , "Description" )
+        courses = Course.objects.all()
+        course_in_db = courses[0]
+        self.assertEqual(1, courses.count())
+        self.assertEqual(course_in_db.school, school)
+        self.assertEqual(course_in_db.url, "https://www.gla.ac.uk")
+        self.assertEqual(course_in_db.name, "Course title")
+        self.assertEqual(course_in_db.description, "Description")
+        self.assertEqual(course_in_db.avgRating, 0)
+        self.assertEqual(course_in_db.noOfRatings, 0)
+
+
+    def test_course_review(self):
+        user = util.add_user("mrtest1", "mrtest1@test.com", "Test1", "User")
+        user2 = util.add_user("mrtest2", "mrtest2@test.com", "Test2", "User")
+        uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
+        school = util.add_school("School name", uni)
+        course = util.add_course("Course title", school, "https://www.gla.ac.uk" , "Description" )
+        
+        #Check both reviews save
+        util.add_course_review(course, user, "Review test", 3)
+        course_reviews = CourseReview.objects.all();
+        self.assertEqual(1, course_reviews.count())
+        util.add_course_review(course, user2, "Review test 2", 4)
+        course_reviews = CourseReview.objects.all();
+        self.assertEqual(2, course_reviews.count())
+
+        first_review = course_reviews[0]
+        self.assertEqual(first_review.course, course)
+        self.assertEqual(first_review.reviewText, "Review test")
+
+        #Check if ratings are calculated properly
+        course_in_db = Course.objects.all()[0]
+        self.assertEqual(course_in_db.avgRating, 3.5)
+        self.assertEqual(course_in_db.noOfRatings, 2)
+
+
+    def test_teacher_model(self):
+        uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
+        school = util.add_school("School name", uni)
+        teacher = util.add_teacher("Name", school, "email@website.com", "01234567890", "https://website.com/image.jpeg")
+        teachers = Teacher.objects.all()
+        teacher_in_db = teachers[0]
+        self.assertEqual(1, teachers.count())
+        self.assertEqual(teacher_in_db.school, school)
+        self.assertEqual(teacher_in_db.email, "email@website.com")
+        self.assertEqual(teacher_in_db.name, "Name")
+        self.assertEqual(teacher_in_db.mobile, "01234567890")
+        self.assertEqual(teacher_in_db.imageUrl, "https://website.com/image.jpeg")
+        self.assertEqual(teacher_in_db.avgRating, 0)
+        self.assertEqual(teacher_in_db.noOfRatings, 0)
 
 class ViewTests(TestCase):
     def test_registration_form_is_displayed_correctly(self):
@@ -106,7 +204,7 @@ class ViewTests(TestCase):
 
     def test_login_redirects_home(self):
         # Create a user
-        test_utils.create_user()
+        util.add_user("mrtest1", "mrtest1@test.com", "Test1", "User")
         
         # Access login page via POST with user data
         try:
