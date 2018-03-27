@@ -1,3 +1,7 @@
 db.sqlite3
 *.pyc
 .vs/
+.DS_Store
+unevu/__pycache__/
+unevu/migrations/
+web_dev_final_project/__pycache__/
