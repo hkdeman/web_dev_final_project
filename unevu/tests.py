@@ -29,11 +29,14 @@ class ModelTestCases(TestCase):
 
         # Check there is only the saved user
         self.assertEqual(1, User.objects.count(), "Number of Profiles must be 1")
+
     def test_university_model(self):
         uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
         unis_in_db = University.objects.all()
         self.assertEqual(1, unis_in_db.count())
         uni_in_db = unis_in_db[0]
+        
+        #Check if university is saved correctly
         self.assertEqual(uni, uni_in_db)
         self.assertEqual(uni_in_db.name, "Test Uni")
         self.assertEqual(uni_in_db.location, "Test Location")
@@ -69,6 +72,8 @@ class ModelTestCases(TestCase):
         uni = util.add_uni("Test Uni", "Test Location", "Test Description", 55.8721211,-4.2882005)
         school = util.add_school("School name", uni)
         schools = School.objects.all()
+        
+        #Check if school is saved correctly
         self.assertEqual(1, schools.count())
         self.assertEqual(schools[0].name, "School name")
         self.assertEqual(schools[0].university, uni)
@@ -79,6 +84,8 @@ class ModelTestCases(TestCase):
         util.add_course("Course title", school, "https://www.gla.ac.uk" , "Description" )
         courses = Course.objects.all()
         course_in_db = courses[0]
+        
+        #Check if course is saved correctly
         self.assertEqual(1, courses.count())
         self.assertEqual(course_in_db.school, school)
         self.assertEqual(course_in_db.url, "https://www.gla.ac.uk")
@@ -119,8 +126,12 @@ class ModelTestCases(TestCase):
         teacher = util.add_teacher("Name", school, "email@website.com", "01234567890", "https://website.com/image.jpeg")
         teachers = Teacher.objects.all()
         teacher_in_db = teachers[0]
+        
+        #Check if the teacher is saved 
         self.assertEqual(1, teachers.count())
         self.assertEqual(teacher_in_db.school, school)
+        
+        #Check if info are correct
         self.assertEqual(teacher_in_db.email, "email@website.com")
         self.assertEqual(teacher_in_db.name, "Name")
         self.assertEqual(teacher_in_db.mobile, "01234567890")

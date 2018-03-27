@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
 
+#Form for user accounts
 class UserForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your first name'}), required = True)
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter your last name'}), required = True)

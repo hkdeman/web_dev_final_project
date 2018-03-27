@@ -9,6 +9,7 @@ from unevu.forms import UserForm
 
 from unevu.models import *
 
+#Displays home page
 def home(request):    
     context_dict = {}
     context_dict['universities'] = University.objects.all()
@@ -18,6 +19,7 @@ def home(request):
     
     return response
 
+#Displays about page
 def about(request):
     context_dict = {}
     
@@ -25,9 +27,11 @@ def about(request):
     
     return response
 
+#Displays registration page
 def register(request):
     registered = False
     
+    #Submission of registration form
     if ('submit' in request.POST):
         form = UserForm(data=request.POST)
         
@@ -40,15 +44,18 @@ def register(request):
             first_name = form.cleaned_data['first_name']
             last_name = form.cleaned_data['last_name']
             
+            #Setting password and saving the user to the database
             user.set_password(password)
             user.save()
             
             registered = True
             
+            #Login
             if registered:
                 u = User.objects.get(username=username)
                 UserProfile.objects.create(user_id=u.id)
-
+            
+            #If success in logging in redirect to home page
             if user is not None:
                 if user.is_active:
                     login(request,user)
@@ -64,11 +71,13 @@ def register(request):
                    'registered': registered
                   })
 
-
+#Displays login page
 def user_login(request):
     if request.method == 'POST':
+        #Redirects to home page without logging in
         if 'home' in request.POST:
            return HttpResponseRedirect('/')
+        #User logs in
         elif 'submit' in request.POST:
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -83,6 +92,7 @@ def user_login(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    #Keep logged in
                     if request.POST.get('remember_me'):
                         request.session.set_expiry(settings.KEEP_LOGGED_DURATION)
                     
@@ -96,16 +106,13 @@ def user_login(request):
     else:
         return render(request, 'unevu/login.html', {})
 
+#Allows user to log out
 def user_logout(request):
     logout(request)
 
     return redirect('/')
 
-def choose_uni(request):
-    context_dict = {}
-    response = render(request, 'unevu/home.html', context=context_dict)
-    return response
-    
+#Get schools for each university    
 def uni_details(request):
     if request.method == "POST":
         if request.POST.get("what")=="query-schools":
@@ -114,6 +121,7 @@ def uni_details(request):
             json_university = json.dumps({"id" : university.id})
             return HttpResponse(json_university, content_type ="application/json")
 
+#Display the university page
 def university(request,uni_id):
     if request.method == "GET":
         university = University.objects.get(id=uni_id)
@@ -121,6 +129,7 @@ def university(request,uni_id):
         rating = None
         uni_desc = university.description
         uni_reviews = UniReview.objects.filter(university=university).order_by('-rating')[:3]
+        #Get likes only if logged in  
         if request.user.is_authenticated:
             likes = Like.objects.filter(username = request.user)
             likes = [ like.review_id for like in likes]
@@ -130,6 +139,7 @@ def university(request,uni_id):
                 else:
                     review.liked = False
         try:
+            #Get average rating for university    
             rating = round(sum([int(review.rating) for review in uni_reviews])/len(uni_reviews),1)
         except:
             pass
@@ -138,8 +148,10 @@ def university(request,uni_id):
         response = render(request, 'unevu/university.html', context=context_dict)
         return response
 
+#Get choices for school selected 
 def school_details(request):
     if request.method == "POST":
+        #Get subjects available   
         if request.POST.get("what")=="query-subjects":
             id = int(request.POST.get('university'))
             school_name = request.POST.get('school')
@@ -148,6 +160,7 @@ def school_details(request):
             courses = [course.name for course in Course.objects.filter(school_id=school.id)]
             json_courses = json.dumps({"info" : courses})
             return HttpResponse(json_courses, content_type ="application/json")
+        #Get teachers available           
         elif request.POST.get("what")=="query-teachers":
             id = int(request.POST.get('university'))
             school_name = request.POST.get('school')
@@ -156,6 +169,7 @@ def school_details(request):
             teachers = [teacher.name for teacher in Teacher.objects.filter(school_id=school.id) if teacher.email and teacher.mobile and teacher.imageUrl]
             json_courses = json.dumps({"info" : teachers})
             return HttpResponse(json_courses, content_type ="application/json")
+        #Get course selected   
         elif request.POST.get("what")=="course-selected":
             id = int(request.POST.get('university'))
             school_name = request.POST.get('school')
@@ -165,6 +179,7 @@ def school_details(request):
             course = Course.objects.get(school_id=school.id,name=course_name)
             json_selected_course = json.dumps({"id" : course.id})
             return HttpResponse(json_selected_course, content_type ="application/json")
+        #Get teacher selected           
         elif request.POST.get("what")=="teacher-selected":
             id = int(request.POST.get('university'))
             school_name = request.POST.get('school')
@@ -177,7 +192,7 @@ def school_details(request):
 
     return Http404("Course not found or access denied. Please go back.")
 
-
+#Display Course page
 def review_course(request,course_id):
     if request.method == "GET":
         course = Course.objects.get(id=course_id)
@@ -185,6 +200,7 @@ def review_course(request,course_id):
         reviews = CourseReview.objects.filter(course=course)
         teacher = course.convener
         if request.user.is_authenticated:
+            #Show likes on reviews if logged in
             likes = Like.objects.filter(username = request.user)
             likes = [ like.review_id for like in likes]
             for review in reviews:
@@ -198,6 +214,7 @@ def review_course(request,course_id):
     elif request.method == "POST":
         if request.user.is_authenticated:
             what = request.POST.get('what')
+            #Request to assign teacher to admin
             if what == "update-teacher":
                 teacher_name = request.POST.get('teacher')
                 course = Course.objects.get(id=course_id)
@@ -209,10 +226,12 @@ def review_course(request,course_id):
                 request.save()
                 return HttpResponse("Success")
 
+#Allows to add reviews on models
 def add_review(request):
     if request.user.is_authenticated:
         if request.method == "POST":
             what = request.POST.get('what')
+            #Add course review
             if what == "course":
                 course_id = request.POST.get('course')
                 review = request.POST.get('review')
@@ -223,7 +242,8 @@ def add_review(request):
                 course.save()
                 course_review = CourseReview.objects.create(course=course,username=request.user,reviewText=review,rating=rating)
                 course_review.save()
-                return HttpsResponse("success")                
+                return HttpsResponse("success")   
+            #Add uni review             
             elif what == "university":
                 uni_id = request.POST.get('university')
                 review = request.POST.get('review')
@@ -235,6 +255,7 @@ def add_review(request):
                 uni_review = UniReview.objects.create(university=university,username=request.user,reviewText=review,rating=rating)
                 uni_review.save()
                 return HttpsResponse("success")
+            #Add teacher review
             elif what == "teacher":
                 uni_id = request.POST.get('teacher')
                 review = request.POST.get('review')
@@ -250,7 +271,7 @@ def add_review(request):
         return HttpResponse("Error")
 
 
-
+#Display all reviews for a university (View All)
 def review_uni(request,uni_id):
     university = University.objects.get(id=uni_id)
     reviews = UniReview.objects.filter(university=university)
@@ -267,6 +288,7 @@ def review_uni(request,uni_id):
                     "reviews":reviews,"lat":university.lat,"lng":university.lng,"uni_id":university.id}
     return render(request, 'unevu/universities_review.html', context=context_dict)
 
+#Display all reviews for a teacher (View All)
 def review_teacher(request,teacher_id):
     teacher = Teacher.objects.get(id=teacher_id)
     reviews = TeacherReview.objects.filter(teacher=teacher)
@@ -281,6 +303,7 @@ def review_teacher(request,teacher_id):
     context_dict = {"teacher":teacher, "reviews":reviews, "uni_name":teacher.school.university.name,"uni_id":teacher.school.university.id}
     return render(request, 'unevu/teachers_review.html', context=context_dict)
 
+#Allows liking
 def like(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -304,7 +327,9 @@ def like(request):
             return Http404("Cannot like without logged in")
 
 
+#Allows a user to change their name or delete their account
 def preferences(request):
+    #Display preferences
     if request.user.is_authenticated:
         if request.method == "GET":
             reviews = None
@@ -320,9 +345,11 @@ def preferences(request):
             return render(request, 'unevu/preferences.html', context=context_dict)
         elif request.method == "POST":
             what = request.POST.get('what')
+            #delete account
             if what == "delete-account":
                 request.user.delete()
                 return HttpResponse("success")
+            #update user details (first name, last name)
             elif what == "update-details":
                 first_name = request.POST.get("first_name")
                 last_name = request.POST.get("last_name")
@@ -333,10 +360,12 @@ def preferences(request):
     else:
         return HttpResponseRedirect('/')
 
+#Allows a user to change/edit a review that he submitted previously
 def update_review(request):
     if request.method == "POST":
         if request.user.is_authenticated:
             what = request.POST.get('what')
+            #Edit review
             if what == "update":    
                 id = request.POST.get('id')
                 reviewText = request.POST.get('review')
@@ -346,6 +375,7 @@ def update_review(request):
                 review.rating = rating
                 review.save()
                 return HttpResponse("success")
+            #Delete review
             if what == "delete":
                 id = request.POST.get('id')
                 review = Review.objects.get(id=id)

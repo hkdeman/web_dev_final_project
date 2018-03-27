@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from unevu import views
 
+#Links urls to views
 urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^about-us/$', views.about, name = 'about'),
