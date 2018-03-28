@@ -1,7 +1,7 @@
 # Unevu
 Unevu is the new way to choose the university of your dreams. You can view but also add ratings for universities, teachers and courses!
 
-This was a group project for Web App Development at the University of Glasgow. It was created by [Hemang](https://github.com/hkdeman/), [Gabrielle](https://github.com/gdaugenaite), [Eleonora](https://github.com/eleondella) and [Reiss](https://github.com/reissGRVS) .
+This was a group project for Web App Development at the University of Glasgow. It was created by [Hemang](https://github.com/hkdeman/), [Gabriele](https://github.com/gdaugenaite), [Eleonora](https://github.com/eleondella) and [Reiss](https://github.com/reissGRVS) .
 
 ## How to install
 1. Clone the repo locally
