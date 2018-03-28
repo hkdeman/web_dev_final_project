@@ -78,7 +78,7 @@ if __name__ == "__main__":
 	#Sets test review for Economics 1A
 	course = Course.objects.get(id = 1)
 	teacher = Teacher.objects.get(name = "Harless, Dr Patrick")
-	set_convener_to_course(course,teacher)
+	util.set_convener_to_course(course,teacher)
 
 	test_user = util.add_user("mrtest0", "mrtest0@test.com", "Test", "User")
 	util.add_course_review(course, test_user, "Very good course. Fandabbydozy!", 4)
