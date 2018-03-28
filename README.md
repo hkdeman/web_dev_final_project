@@ -23,7 +23,13 @@ $ pip install -r requirements.txt
 ```bash
 $ python manage.py test unevu
 ```
-
+## How to set up database and collect resources
+```bash
+$ python manage.py collectstatic
+$ python manage.py makemigrations
+$ python manage.py makemigrations unevu
+$ python manage.py migrate
+```
 ## How to populate database initially
 ```bash
 $ python population_script.py
