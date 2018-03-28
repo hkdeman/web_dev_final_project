@@ -1,10 +1,10 @@
 import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE','web_dev_final_project.settings')
-from unevu.models import *
 from tqdm import tqdm
 import json
 import django
 django.setup()
+from unevu.models import *
 
 import unevu.utils as util
 
